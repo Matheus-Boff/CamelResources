@@ -1,4 +1,5 @@
 using back.Data;
+using back.Middleware;
 using back.Repositories.Implementations;
 using back.Repositories.Interfaces;
 using back.Services.Implementations;
@@ -45,6 +46,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

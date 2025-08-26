@@ -33,8 +33,8 @@ public class NotebookRepository: INotebookRepository
 
     public async Task CreateAsync(Notebook notebook)
     {
-        Console.WriteLine(notebook.Id);
-        await _context.Notebooks.AddAsync(notebook);
+        await _context.Notebooks.AddAsync(notebook); 
+        await _context.SaveChangesAsync();
     }
 
     public async Task UpdateAsync(int id, Notebook notebook)
@@ -63,5 +63,7 @@ public class NotebookRepository: INotebookRepository
         }
         
         _context.Notebooks.Remove(notebook);
+        await _context.SaveChangesAsync();
+
     }
 }
