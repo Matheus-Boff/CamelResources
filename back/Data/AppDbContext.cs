@@ -12,28 +12,53 @@ namespace back.Data
         public DbSet<Sala> Salas { get; set; }
         public DbSet<Laboratorio> Laboratorios { get; set; }
         public DbSet<Alocacao> Alocacoes { get; set; }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // Constraint: um Notebook por dia
-            modelBuilder.Entity<Alocacao>()
+            var alocacao = modelBuilder.Entity<Alocacao>();
+
+            // Delete em cascata
+            alocacao
+                .HasOne(a => a.Funcionario)
+                .WithMany()
+                .HasForeignKey(a => a.FuncionarioId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            alocacao
+                .HasOne(a => a.Notebook)
+                .WithMany()
+                .HasForeignKey(a => a.NotebookId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            alocacao
+                .HasOne(a => a.Sala)
+                .WithMany()
+                .HasForeignKey(a => a.SalaId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            alocacao
+                .HasOne(a => a.Laboratorio)
+                .WithMany()
+                .HasForeignKey(a => a.LaboratorioId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Restrição: um recurso por dia
+            alocacao
                 .HasIndex(a => new { a.NotebookId, a.DataAlocacao })
                 .IsUnique()
-                .HasFilter("[NotebookId] IS NOT NULL"); // pode ser NULL
+                .HasFilter("[NotebookId] IS NOT NULL");
 
-            // Constraint: uma Sala por dia
-            modelBuilder.Entity<Alocacao>()
+            alocacao
                 .HasIndex(a => new { a.SalaId, a.DataAlocacao })
                 .IsUnique()
-                .HasFilter("[RoomId] IS NOT NULL");
+                .HasFilter("[SalaId] IS NOT NULL");
 
-            // Constraint: um Laboratório por dia
-            modelBuilder.Entity<Alocacao>()
+            alocacao
                 .HasIndex(a => new { a.LaboratorioId, a.DataAlocacao })
                 .IsUnique()
-                .HasFilter("[LabId] IS NOT NULL");
+                .HasFilter("[LaboratorioId] IS NOT NULL");
         }
     }
 }
