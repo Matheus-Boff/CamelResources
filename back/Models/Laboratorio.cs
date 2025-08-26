@@ -2,14 +2,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace back.Models
 {
-    public class Notebook {
+    public class Laboratorio {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        public string NroPatrimonio { get; set; }
-        public DateTime DataAquisicao { get; set; }
+        public string Nome { get; set; }
+        public int NumComputadores { get; set; }
         public string Descricao { get; set; }
-
     }   
 }
