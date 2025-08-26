@@ -12,8 +12,8 @@ using back.Data;
 namespace back.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250826023411_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250826195140_PopulatingFuncionarios")]
+    partial class PopulatingFuncionarios
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -98,6 +98,32 @@ namespace back.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Funcionarios");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Cargo = "Programador Pleno",
+                            DataAdmissao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Matricula = "1234567",
+                            Nome = "João Silva"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Cargo = "Analista",
+                            DataAdmissao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Matricula = "9876543",
+                            Nome = "Maria Souza"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Cargo = "Estagiário",
+                            DataAdmissao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Matricula = "1111111",
+                            Nome = "Carlos Pereira"
+                        });
                 });
 
             modelBuilder.Entity("back.Models.Laboratorio", b =>

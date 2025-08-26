@@ -17,6 +17,12 @@ namespace back.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Funcionario>().HasData(
+            new Funcionario { Id = 1, Matricula = "1234567", Nome = "João Silva", Cargo = "Programador Pleno" },
+            new Funcionario { Id = 2, Matricula = "9876543", Nome = "Maria Souza", Cargo = "Analista" },
+            new Funcionario { Id = 3, Matricula = "1111111", Nome = "Carlos Pereira", Cargo = "Estagiário" }
+        );
+
             var alocacao = modelBuilder.Entity<Alocacao>();
 
             // Delete em cascata
