@@ -7,7 +7,7 @@ namespace back.Models
         public int Id { get; set; }
 
         [Required]
-        public DateTime DataReserva { get; set; }
+        public DateTime DataAlocacao { get; set; }
 
         // FK Funcionario
         public int FuncionarioId { get; set; }
