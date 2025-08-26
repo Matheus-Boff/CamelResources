@@ -64,6 +64,7 @@ namespace back.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    Console.WriteLine("lalalala");
                     await _service.CreateAsync(notebook);
                     return Ok(notebook);
                 }

@@ -25,7 +25,7 @@ public class NotebookRepository: INotebookRepository
 
         if (notebook == null)
         {
-            throw new KeyNotFoundException($"Notebook com id {id} não encontrado."); 
+            throw new KeyNotFoundException($"Notebook com id {id} não encontrado.");
         }
 
         return notebook;
@@ -33,6 +33,7 @@ public class NotebookRepository: INotebookRepository
 
     public async Task CreateAsync(Notebook notebook)
     {
+        Console.WriteLine(notebook.Id);
         await _context.Notebooks.AddAsync(notebook);
     }
 
