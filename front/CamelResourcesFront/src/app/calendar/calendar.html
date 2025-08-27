@@ -1,0 +1,34 @@
+<section class="cal" role="group" aria-label="Calendário">
+  <header class="cal-head">
+    <div class="cal-title">{{ title }}</div>
+    <div class="cal-nav">
+      <button type="button" class="btn" (click)="prevMonth()" aria-label="Mês anterior">◀</button>
+      <button type="button" class="btn" (click)="nextMonth()" aria-label="Próximo mês">▶</button>
+    </div>
+  </header>
+
+  <div class="dow">
+    <ng-container *ngIf="!mondayStart; else mon">
+      <div>Dom</div><div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
+    </ng-container>
+    <ng-template #mon>
+      <div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div><div>Dom</div>
+    </ng-template>
+  </div>
+
+  <div class="grid" role="grid">
+    <ng-container *ngFor="let d of calendarCells">
+      <div class="cell"
+           [class.empty]="!d"
+           [class.past]="d && disablePast && isPast(d)"
+           [class.today]="d && isToday(d)"
+           [class.selected]="d && isSelected(d)"
+           (click)="d && onSelect(d)"
+           role="gridcell"
+           [attr.aria-selected]="isSelected(d)">
+        <span class="day" *ngIf="d as day">{{ day.getDate() }}</span>
+        <span class="dot" *ngIf="d && hasEvent(d)"></span>
+      </div>
+    </ng-container>
+  </div>
+</section>
