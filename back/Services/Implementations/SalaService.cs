@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using back.Models;
 using back.Services.Interfaces;
 using back.Data;
+using back.DTOs;
 using back.Repositories.Interfaces;
 
 namespace back.Services.Implementations
@@ -38,12 +39,19 @@ namespace back.Services.Implementations
             return await _repository.GetByIdAsync(id);
         }
 
-        public async Task UpdateAsync(int id, Sala sala)
+        public async Task UpdateAsync(int id, SalaUpdateDTO salaDto)
         {
             if (id <= 0)
             {
                 throw new ArgumentException("Id da sala inválido."); 
             }
+
+            var sala = new Sala
+            {
+                Numero = salaDto.Numero,
+                NumLugares = salaDto.NumLugares,
+                Projetor = salaDto.Projetor,
+            };
         
             await _repository.UpdateAsync(id, sala);
         }

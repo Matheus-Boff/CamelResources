@@ -1,3 +1,4 @@
+using back.DTOs;
 using back.Models;
 using back.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -30,23 +31,23 @@ namespace back.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Notebook notebook)
+        public async Task<IActionResult> Create([FromBody] NotebookCreateDTO notebookDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _service.CreateAsync(notebook);
-            return Ok(notebook);
+            await _service.CreateAsync(notebookDto);
+            return Ok();
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] Notebook notebook)
+        public async Task<IActionResult> Update(int id, [FromBody] NotebookUpdateDTO notebookDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _service.UpdateAsync(id, notebook);
-            return Ok(notebook);
+            await _service.UpdateAsync(id, notebookDto);
+            return Ok();
         }
 
         [HttpDelete("{id}")]

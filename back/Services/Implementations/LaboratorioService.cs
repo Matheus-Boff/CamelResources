@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using back.Models;
 using back.Services.Interfaces;
 using back.Data;
+using back.DTOs;
 using back.Repositories.Interfaces;
 
 namespace back.Services.Implementations
@@ -38,13 +39,20 @@ namespace back.Services.Implementations
             return await _repository.GetByIdAsync(id);
         }
 
-        public async Task UpdateAsync(int id, Laboratorio lab)
+        public async Task UpdateAsync(int id, LaboratorioUpdateDTO labDto)
         {
             if (id <= 0)
             {
                 throw new ArgumentException("Id do laboratório inválido."); 
             }
-        
+
+            var lab = new Laboratorio
+            {
+                Descricao = labDto.Descricao,
+                Nome = labDto.Nome,
+                NumComputadores = labDto.NumComputadores,
+            };
+            
             await _repository.UpdateAsync(id, lab);
         }
     }

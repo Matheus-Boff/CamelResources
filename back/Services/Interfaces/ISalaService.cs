@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using back.DTOs;
 using back.Models;
 
 namespace back.Services.Interfaces
@@ -8,6 +9,6 @@ namespace back.Services.Interfaces
     {
         Task<IEnumerable<Sala>> GetAllAsync();
         Task<Sala> GetByIdAsync(int id);
-        Task UpdateAsync(int id, Sala sala);
+        Task UpdateAsync(int id, SalaUpdateDTO salaDto);
     }
 }
