@@ -11,7 +11,7 @@ namespace back.Models
 
         // FK Funcionario
         public int FuncionarioId { get; set; }
-        public Funcionario Funcionario;
+        public Funcionario Funcionario { get; set; }
 
         // FK Notebook
         public int? NotebookId { get; set; }

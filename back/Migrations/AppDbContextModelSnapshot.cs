@@ -36,9 +36,6 @@ namespace back.Migrations
                     b.Property<int>("FuncionarioId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("FuncionarioId1")
-                        .HasColumnType("int");
-
                     b.Property<int?>("LaboratorioId")
                         .HasColumnType("int");
 
@@ -51,8 +48,6 @@ namespace back.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("FuncionarioId");
-
-                    b.HasIndex("FuncionarioId1");
 
                     b.HasIndex("LaboratorioId", "DataAlocacao")
                         .IsUnique()
@@ -150,21 +145,21 @@ namespace back.Migrations
                         new
                         {
                             Id = 1,
-                            Descricao = "Laboratório com PCs para aulas de programação",
+                            Descricao = "20 PCs Dell Optiplex, Intel i5, 8GB RAM, 256GB SSD, Windows 10",
                             Nome = "Lab de Informática 1",
                             NumComputadores = 20
                         },
                         new
                         {
                             Id = 2,
-                            Descricao = "Laboratório com PCs para aulas de redes",
+                            Descricao = "25 PCs Lenovo ThinkCentre, Intel i7, 16GB RAM, 512GB SSD, Linux Ubuntu",
                             Nome = "Lab de Informática 2",
                             NumComputadores = 25
                         },
                         new
                         {
                             Id = 3,
-                            Descricao = "Laboratório especializado em robótica e automação",
+                            Descricao = "15 PCs HP ProDesk, Intel i5, 16GB RAM, 1TB SSD, Kits Arduino e Raspberry Pi",
                             Nome = "Lab de Robótica",
                             NumComputadores = 15
                         });
@@ -198,21 +193,21 @@ namespace back.Migrations
                         {
                             Id = 1,
                             DataAquisicao = new DateTime(2022, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Descricao = "Notebook para João Silva",
+                            Descricao = "Dell Latitude 5420 - Intel i5, 16GB RAM, 512GB SSD",
                             NroPatrimonio = "1234567"
                         },
                         new
                         {
                             Id = 2,
                             DataAquisicao = new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Descricao = "Notebook para Maria Souza",
+                            Descricao = "Lenovo ThinkPad T14 - AMD Ryzen 5, 8GB RAM, 256GB SSD",
                             NroPatrimonio = "9876543"
                         },
                         new
                         {
                             Id = 3,
                             DataAquisicao = new DateTime(2023, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Descricao = "Notebook para Carlos Pereira",
+                            Descricao = "HP EliteBook 840 G7 - Intel i7, 16GB RAM, 1TB SSD",
                             NroPatrimonio = "1111111"
                         });
                 });
@@ -272,14 +267,10 @@ namespace back.Migrations
             modelBuilder.Entity("back.Models.Alocacao", b =>
                 {
                     b.HasOne("back.Models.Funcionario", "Funcionario")
-                        .WithMany()
+                        .WithMany("Alocacoes")
                         .HasForeignKey("FuncionarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("back.Models.Funcionario", null)
-                        .WithMany("Alocacoes")
-                        .HasForeignKey("FuncionarioId1");
 
                     b.HasOne("back.Models.Laboratorio", "Laboratorio")
                         .WithMany()
