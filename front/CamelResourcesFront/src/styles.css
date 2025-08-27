@@ -65,45 +65,83 @@ header .header-links a:hover, header a:hover {
 
 .home-options {
     display:flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
+    align-items: flex-start;
     gap: 5rem;
+    height: 100%;
+    width: 100%;
 }
 
 .calendar-container {
     background-color: var(--background-color-2);
     padding: 1.5rem;
     border-radius: 20px;
+    height: fit-content;
 }
 
-.option-button {
-    background-color: var(--background-color-3);
+.booking-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background-color-2);
+    padding: 1.5rem;
+    border-radius: 20px;
+    color: var(--font-color-1);
+        h3 {
+            font-size: 1.5rem;
+        }
+}
+
+.booking-preferences {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    border: 2px solid var(--border-color-1);
+    border-radius: 10px;
+    overflow: hidden;
+    background: #ffffff20;
+    margin-bottom: .9rem;;
+}
+
+.booking-preferences button {
     border: none;
-    padding: 3rem;
-    border-radius: 15px;
-    max-width: 16rem;
-    cursor: pointer;
+    padding: 0.5rem 2rem;
+    color: var(--font-color-1);
+    background-color: var(--background-color-3);
     transition: all 0.3s ease;
 }
 
-.button-info {
+.booking-preferences button:hover {
+    background-color: var(--border-color-1);
+    cursor: pointer;
+}
+
+.booking-preferences button.active,
+.booking-preferences button[aria-pressed="true"]{
+  background-color: var(--border-color-2);
+  color: var(--font-color-2);
+  font-weight: 600;
+}
+
+app-resources-board {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-top: 1.5rem;
+    width: 100%;
     gap: 1rem;
-    font-size: 1.5rem;
-    font-weight: 600;
-    font-family: 'Albert Sans', sans-serif;
-    color: var(--font-color-1);
-
-        img {
-            width: 90px;
-            height: 90px;
-        }
 }
 
-.option-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 10px #00000040;
+app-resources-board article {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 10px;
+    color: var(--font-color-1);
+    background-color: var(--background-color-3);
+    width: 95%;
+    height: 100%;
 }
