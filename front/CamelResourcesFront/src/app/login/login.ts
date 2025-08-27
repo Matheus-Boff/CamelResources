@@ -9,4 +9,9 @@ import { Router } from '@angular/router';
 })
 export class Login {
   constructor(private router: Router){}
+
+  entrar() {
+    this.router.navigate(['/home']);
+  }
+
 }
