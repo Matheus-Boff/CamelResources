@@ -7,8 +7,8 @@ namespace back.Services.Interfaces
 {
     public interface ILaboratorioService
     {
-        Task<IEnumerable<Laboratorio>> GetAllAsync();
-        Task<Laboratorio> GetByIdAsync(int id);
+        Task<IEnumerable<LaboratorioReadDTO>> GetAllAsync();
+        Task<LaboratorioReadDTO> GetByIdAsync(int id);
         Task UpdateAsync(int id, LaboratorioUpdateDTO labDto);
     }
 }

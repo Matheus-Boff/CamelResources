@@ -39,6 +39,11 @@ namespace back.Middleware
                 statusCode = (int)HttpStatusCode.BadRequest;
                 message = exception.Message;
             }
+            else if (exception is InvalidOperationException)
+            {
+                statusCode = (int)HttpStatusCode.BadRequest;
+                message = exception.Message;
+            }
 
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = statusCode;
@@ -46,5 +51,6 @@ namespace back.Middleware
             var result = JsonSerializer.Serialize(new { message });
             return context.Response.WriteAsync(result);
         }
+
     }
 }

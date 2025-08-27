@@ -5,8 +5,8 @@ namespace back.Services.Interfaces;
 
 public interface INotebookService
 {
-    Task<IEnumerable<Notebook>> GetAllAsync();
-    Task<Notebook> GetByIdAsync(int id);
+    Task<IEnumerable<NotebookReadDTO>> GetAllAsync();
+    Task<NotebookReadDTO> GetByIdAsync(int id);
     Task CreateAsync(NotebookCreateDTO notebookDto);
     Task UpdateAsync(int id, NotebookUpdateDTO notebookDto);
     Task DeleteAsync(int id);

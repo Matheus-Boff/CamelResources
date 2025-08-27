@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using back.Models;
 using back.Services.Interfaces;
 using back.Data;
+using back.DTOs;
 using back.Repositories.Interfaces;
 
 namespace back.Services.Implementations
@@ -16,7 +17,7 @@ namespace back.Services.Implementations
             _repository = repository;
         }
 
-        public async Task<IEnumerable<Funcionario>> GetAllAsync()
+        public async Task<IEnumerable<FuncionarioCreateDTO>> GetAllAsync()
         {
             var funcionarios = await _repository.GetAllAsync();
 
@@ -25,17 +26,34 @@ namespace back.Services.Implementations
                 throw new KeyNotFoundException("Nenhum funcionário encontrado.");
             }
 
-            return funcionarios;
+            var funcionarioDto = funcionarios.Select(f => new FuncionarioCreateDTO
+            {
+                Id = f.Id,
+                Nome = f.Nome,
+                Cargo = f.Cargo,
+                DataAdmissao = f.DataAdmissao,
+                Matricula = f.Matricula,
+            });
+            
+            return funcionarioDto;
         }
 
-        public async Task<Funcionario> GetByIdAsync(int id)
+        public async Task<FuncionarioCreateDTO> GetByIdAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException("Id do funcionário inválido.");
             }
+            
+            var funcionario = await _repository.GetByIdAsync(id);
 
-            return await _repository.GetByIdAsync(id);
+            return new FuncionarioCreateDTO
+            {
+                Id = funcionario.Id,
+                Nome = funcionario.Nome,
+                Cargo = funcionario.Cargo,
+                DataAdmissao = funcionario.DataAdmissao,
+            };
         }
 
     }

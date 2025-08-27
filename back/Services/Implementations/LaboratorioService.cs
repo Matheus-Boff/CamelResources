@@ -17,7 +17,7 @@ namespace back.Services.Implementations
             _repository = repository;
         }
 
-        public async Task<IEnumerable<Laboratorio>> GetAllAsync()
+        public async Task<IEnumerable<LaboratorioReadDTO>> GetAllAsync()
         {
             var labs = await _repository.GetAllAsync();
 
@@ -26,17 +26,33 @@ namespace back.Services.Implementations
                 throw new KeyNotFoundException("Nenhuma sala encontrada.");
             }
 
-            return labs;
+            var labsDto = labs.Select(l => new LaboratorioReadDTO
+            {
+                Id = l.Id,
+                Nome = l.Nome,
+                NumComputadores = l.NumComputadores,
+                Descricao = l.Descricao
+            });
+            
+            return labsDto;
         }
 
-        public async Task<Laboratorio> GetByIdAsync(int id)
+        public async Task<LaboratorioReadDTO> GetByIdAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException("Id do laboratório inválido.");
             }
 
-            return await _repository.GetByIdAsync(id);
+            var lab = await _repository.GetByIdAsync(id);
+
+            return new LaboratorioReadDTO
+            {
+                Id = lab.Id,
+                Nome = lab.Nome,
+                NumComputadores = lab.NumComputadores,
+                Descricao = lab.Descricao
+            };
         }
 
         public async Task UpdateAsync(int id, LaboratorioUpdateDTO labDto)

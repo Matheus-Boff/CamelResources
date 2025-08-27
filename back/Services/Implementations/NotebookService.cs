@@ -14,7 +14,7 @@ public class NotebookService: INotebookService
         _repository = repository;
     }
 
-    public async Task<IEnumerable<Notebook>> GetAllAsync()
+    public async Task<IEnumerable<NotebookReadDTO>> GetAllAsync()
     {
         var notebooks = await _repository.GetAllAsync();
 
@@ -22,18 +22,34 @@ public class NotebookService: INotebookService
         {
             throw new KeyNotFoundException("Nenhum funcionário encontrado."); 
         }
+
+        var notebooksDtos = notebooks.Select(n => new NotebookReadDTO
+        {
+            Id = n.Id,
+            NroPatrimonio = n.NroPatrimonio,
+            Descricao = n.Descricao,
+            DataAquisicao = n.DataAquisicao,
+        });
         
-        return notebooks;
+        return notebooksDtos;
     }
 
-    public async Task<Notebook> GetByIdAsync(int id)
+    public async Task<NotebookReadDTO> GetByIdAsync(int id)
     {
         if (id <= 0)
         {
             throw new ArgumentException("Id do notebook inválido."); 
         }
         
-        return await _repository.GetByIdAsync(id);
+        var notebook = await _repository.GetByIdAsync(id);
+
+        return new NotebookReadDTO
+        {
+            Id = notebook.Id,
+            Descricao = notebook.Descricao,
+            DataAquisicao = notebook.DataAquisicao,
+            NroPatrimonio = notebook.NroPatrimonio,
+        };
     }
 
     public async Task CreateAsync(NotebookCreateDTO notebookDto)

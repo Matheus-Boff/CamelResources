@@ -24,9 +24,9 @@ namespace back.Data
         );
 
           modelBuilder.Entity<Notebook>().HasData(
-            new Notebook { Id = 1, NroPatrimonio = "1234567", DataAquisicao = DateTime.Parse("2022-01-15"), Descricao = "Notebook para João Silva" },
-            new Notebook { Id = 2, NroPatrimonio = "9876543", DataAquisicao = DateTime.Parse("2022-06-10"), Descricao = "Notebook para Maria Souza" },
-            new Notebook { Id = 3, NroPatrimonio = "1111111", DataAquisicao = DateTime.Parse("2023-02-20"), Descricao = "Notebook para Carlos Pereira" }
+            new Notebook { Id = 1, NroPatrimonio = "1234567", DataAquisicao = DateTime.Parse("2022-01-15"), Descricao = "Dell Latitude 5420 - Intel i5, 16GB RAM, 512GB SSD" },
+            new Notebook { Id = 2, NroPatrimonio = "9876543", DataAquisicao = DateTime.Parse("2022-06-10"), Descricao = "Lenovo ThinkPad T14 - AMD Ryzen 5, 8GB RAM, 256GB SSD" },
+            new Notebook { Id = 3, NroPatrimonio = "1111111", DataAquisicao = DateTime.Parse("2023-02-20"), Descricao = "HP EliteBook 840 G7 - Intel i7, 16GB RAM, 1TB SSD" }
             );
           
           modelBuilder.Entity<Sala>().HasData(
@@ -37,9 +37,9 @@ namespace back.Data
               );
           
           modelBuilder.Entity<Laboratorio>().HasData(
-              new Laboratorio { Id = 1, Nome = "Lab de Informática 1", NumComputadores = 20, Descricao = "Laboratório com PCs para aulas de programação" },
-              new Laboratorio { Id = 2, Nome = "Lab de Informática 2", NumComputadores = 25, Descricao = "Laboratório com PCs para aulas de redes" },
-              new Laboratorio { Id = 3, Nome = "Lab de Robótica", NumComputadores = 15, Descricao = "Laboratório especializado em robótica e automação" }
+              new Laboratorio { Id = 1, Nome = "Lab de Informática 1", NumComputadores = 20, Descricao = "20 PCs Dell Optiplex, Intel i5, 8GB RAM, 256GB SSD, Windows 10" },
+              new Laboratorio { Id = 2, Nome = "Lab de Informática 2", NumComputadores = 25, Descricao = "25 PCs Lenovo ThinkCentre, Intel i7, 16GB RAM, 512GB SSD, Linux Ubuntu" },
+              new Laboratorio { Id = 3, Nome = "Lab de Robótica", NumComputadores = 15, Descricao = "15 PCs HP ProDesk, Intel i5, 16GB RAM, 1TB SSD, Kits Arduino e Raspberry Pi" }
           ); 
         
             var alocacao = modelBuilder.Entity<Alocacao>();
@@ -47,7 +47,7 @@ namespace back.Data
             // Delete em cascata
             alocacao
                 .HasOne(a => a.Funcionario)
-                .WithMany()
+                .WithMany(f => f.Alocacoes)
                 .HasForeignKey(a => a.FuncionarioId)
                 .OnDelete(DeleteBehavior.Cascade);
 
