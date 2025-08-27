@@ -5,5 +5,5 @@ import { ResourcesPageComponent } from './resources-page/resources-page.componen
 
 export const routes: Routes = [
     { path: '', component: Login },
-    { path: 'home', component: ResourcesPageComponent }
+    { path: 'home', component: HomePage }
 ];
