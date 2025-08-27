@@ -46,6 +46,12 @@ namespace back.Data
         Descricao = "Notebook para Carlos Pereira" 
     }
 );
+          
+modelBuilder.Entity<Laboratorio>().HasData(
+    new Laboratorio { Id = 1, Nome = "Lab de Informática 1", NumComputadores = 20, Descricao = "Laboratório com PCs para aulas de programação" },
+    new Laboratorio { Id = 2, Nome = "Lab de Informática 2", NumComputadores = 25, Descricao = "Laboratório com PCs para aulas de redes" },
+    new Laboratorio { Id = 3, Nome = "Lab de Robótica", NumComputadores = 15, Descricao = "Laboratório especializado em robótica e automação" }
+);
 
 
             var alocacao = modelBuilder.Entity<Alocacao>();

@@ -18,8 +18,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
 builder.Services.AddScoped<IFuncionarioService, FuncionarioService>();
+
 builder.Services.AddScoped<INotebookRepository, NotebookRepository>();
 builder.Services.AddScoped<INotebookService, NotebookService>();
+
+builder.Services.AddScoped<ILaboratorioRepository, LaboratorioRepository>();
+builder.Services.AddScoped<ILaboratorioService, LaboratorioService>();
 
 // --- Configuração do Swagger ---
 builder.Services.AddEndpointsApiExplorer();
