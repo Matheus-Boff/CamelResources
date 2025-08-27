@@ -37,7 +37,7 @@ namespace back.Repositories.Implementations
         {
             var salaToUpdate = await _context.Salas.FindAsync(id);
 
-            if (sala == null)
+            if (salaToUpdate == null)
             {
                 throw new KeyNotFoundException($"Sala com id {id} não encontrada.");  
             }

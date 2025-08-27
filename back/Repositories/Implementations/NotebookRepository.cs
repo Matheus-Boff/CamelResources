@@ -41,7 +41,7 @@ public class NotebookRepository: INotebookRepository
     {
         var notebookToUpdate = await _context.Notebooks.FindAsync(id);
 
-        if (notebook == null)
+        if (notebookToUpdate == null)
         {
             throw new KeyNotFoundException($"Notebook com id {id} não encontrado.");  
         }
