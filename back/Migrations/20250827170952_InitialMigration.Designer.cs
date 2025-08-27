@@ -12,8 +12,8 @@ using back.Data;
 namespace back.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250827135618_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250827170952_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
