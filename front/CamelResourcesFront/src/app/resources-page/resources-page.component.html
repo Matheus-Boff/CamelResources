@@ -1,0 +1,10 @@
+<app-header></app-header>
+<div class="resources-page-container">
+	<div class="resources-grid">
+		<app-card-resources
+			*ngFor="let btn of buttons"
+			[icon]="btn.icon"
+			[number]="btn.number">
+		</app-card-resources>
+	</div>
+</div>
