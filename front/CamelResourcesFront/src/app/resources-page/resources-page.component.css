@@ -1,0 +1,18 @@
+
+.resources-page-container {
+	width: 100vw;
+	min-height: 90vh;
+	background: #d3dae2;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.resources-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 32px;
+	justify-items: center;
+	align-items: center;
+	max-width: 1200px;
+}
