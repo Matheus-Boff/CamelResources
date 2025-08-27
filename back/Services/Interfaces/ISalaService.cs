@@ -7,8 +7,8 @@ namespace back.Services.Interfaces
 {
     public interface ISalaService
     {
-        Task<IEnumerable<Sala>> GetAllAsync();
-        Task<Sala> GetByIdAsync(int id);
+        Task<IEnumerable<SalaReadDTO>> GetAllAsync();
+        Task<SalaReadDTO> GetByIdAsync(int id);
         Task UpdateAsync(int id, SalaUpdateDTO salaDto);
     }
 }

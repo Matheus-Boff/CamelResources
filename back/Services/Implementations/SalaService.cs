@@ -17,7 +17,7 @@ namespace back.Services.Implementations
             _repository = repository;
         }
 
-        public async Task<IEnumerable<Sala>> GetAllAsync()
+        public async Task<IEnumerable<SalaReadDTO>> GetAllAsync()
         {
             var salas = await _repository.GetAllAsync();
 
@@ -26,17 +26,33 @@ namespace back.Services.Implementations
                 throw new KeyNotFoundException("Nenhuma sala encontrada.");
             }
 
-            return salas;
+            var salasDTO = salas.Select(s => new SalaReadDTO
+            {
+                Id = s.Id,
+                NumLugares = s.NumLugares,
+                Projetor = s.Projetor,
+                Numero = s.Numero,
+            });
+            
+            return salasDTO;
         }
 
-        public async Task<Sala> GetByIdAsync(int id)
+        public async Task<SalaReadDTO> GetByIdAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException("Id da sala inválido.");
             }
 
-            return await _repository.GetByIdAsync(id);
+            var sala = await _repository.GetByIdAsync(id);
+
+            return new SalaReadDTO
+            {
+                Id = sala.Id,
+                NumLugares = sala.NumLugares,
+                Projetor = sala.Projetor,
+                Numero = sala.Numero,
+            };
         }
 
         public async Task UpdateAsync(int id, SalaUpdateDTO salaDto)
