@@ -23,6 +23,31 @@ namespace back.Data
             new Funcionario { Id = 3, Matricula = "1111111", Nome = "Carlos Pereira", Cargo = "Estagiário" }
         );
 
+          modelBuilder.Entity<Notebook>().HasData(
+    new Notebook 
+    { 
+        Id = 1, 
+        NroPatrimonio = "1234567",  
+        DataAquisicao = DateTime.Parse("2022-01-15"), 
+        Descricao = "Notebook para João Silva" 
+    },
+    new Notebook 
+    { 
+        Id = 2, 
+        NroPatrimonio = "9876543",  
+        DataAquisicao = DateTime.Parse("2022-06-10"), 
+        Descricao = "Notebook para Maria Souza" 
+    },
+    new Notebook 
+    { 
+        Id = 3, 
+        NroPatrimonio = "1111111",  
+        DataAquisicao = DateTime.Parse("2023-02-20"), 
+        Descricao = "Notebook para Carlos Pereira" 
+    }
+);
+
+
             var alocacao = modelBuilder.Entity<Alocacao>();
 
             // Delete em cascata
