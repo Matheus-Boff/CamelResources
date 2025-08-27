@@ -6,6 +6,7 @@
     --font-color-1: #012340;
     --font-color-2: #dbdbdb;
     --border-color-1: #99B2B7;
+    --border-color-2: #A68A58;
 }
 
 body {
@@ -34,11 +35,19 @@ header {
         height: auto;
         margin-left: 1rem;
     }
+
+    a {
+        color: var(--font-color-2);
+        text-decoration: none;
+        margin-right: 2rem;
+        font-size: 1.3rem;
+        transition: all 0.3s ease;
+    }
+
 }
 
 header .header-links {
     display: flex;
-    margin-right: 2rem;
     font-size: 1.3rem;
     gap: 3rem;
 
@@ -49,16 +58,22 @@ header .header-links {
     }
 }
 
-header .header-links a:hover {
+header .header-links a:hover, header a:hover {
     transform: scale(1.2);
     text-shadow: 0 0 4px #00000080;
 }
 
 .home-options {
     display:flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     gap: 5rem;
+}
+
+.calendar-container {
+    background-color: var(--background-color-2);
+    padding: 1.5rem;
+    border-radius: 20px;
 }
 
 .option-button {
