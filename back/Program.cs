@@ -9,6 +9,13 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//criando a permissão para o front poder fazer requisições
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("permissaoDeRequisicoesFront",
+    policy => policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
+});
+
 // Adicionar serviços de controller
 builder.Services.AddControllers();
 
@@ -44,6 +51,9 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var app = builder.Build();
+
+// implementando a permissão para o front poder fazer requisições
+app.UseCors("permissaoDeRequisicoesFront");
 
 // Habilitar Swagger em desenvolvimento (pode habilitar em produção se quiser)
 if (app.Environment.IsDevelopment())
