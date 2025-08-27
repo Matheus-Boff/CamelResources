@@ -1,4 +1,5 @@
-﻿using back.Models;
+﻿using back.DTOs;
+using back.Models;
 using back.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,13 +31,13 @@ namespace back.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] Sala sala)
+        public async Task<IActionResult> Update(int id, [FromBody] SalaUpdateDTO salaDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _service.UpdateAsync(id, sala);
-            return Ok(sala);
+            await _service.UpdateAsync(id, salaDto);
+            return Ok(salaDto);
         }
     }
 }

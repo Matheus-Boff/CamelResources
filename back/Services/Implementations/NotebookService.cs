@@ -1,3 +1,4 @@
+using back.DTOs;
 using back.Models;
 using back.Repositories.Interfaces;
 using back.Services.Interfaces;
@@ -35,17 +36,31 @@ public class NotebookService: INotebookService
         return await _repository.GetByIdAsync(id);
     }
 
-    public async Task CreateAsync(Notebook notebook)
-    {
+    public async Task CreateAsync(NotebookCreateDTO notebookDto)
+    {   
+        var notebook = new Notebook
+        {
+            NroPatrimonio = notebookDto.NroPatrimonio,
+            Descricao = notebookDto.Descricao,
+            DataAquisicao = notebookDto.DataAquisicao,
+        };
+        
         await _repository.CreateAsync(notebook);
     }
 
-    public async Task UpdateAsync(int id, Notebook notebook)
+    public async Task UpdateAsync(int id, NotebookUpdateDTO notebookDto)
     {
         if (id <= 0)
         {
             throw new ArgumentException("Id do notebook inválido."); 
         }
+
+        var notebook = new Notebook
+        {
+            NroPatrimonio = notebookDto.NroPatrimonio,
+            Descricao = notebookDto.Descricao,
+            DataAquisicao = notebookDto.DataAquisicao,
+        };
         
         await _repository.UpdateAsync(id, notebook);
     }
