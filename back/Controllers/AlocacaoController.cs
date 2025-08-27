@@ -19,17 +19,15 @@ namespace back.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            throw new NotImplementedException();
-            /*var notebooks = await _service.GetAllAsync();
-            return Ok(notebooks);*/
+            var alocacoes = await _service.GetAllAsync();
+            return Ok(alocacoes);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            throw new NotImplementedException();
-            /*var notebook = await _service.GetByIdAsync(id);
-            return Ok(notebook);*/
+            var alocacao = await _service.GetByIdAsync(id);
+            return Ok(alocacao);
         }
 
         [HttpPost]

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace back.Models
 {
@@ -7,6 +8,8 @@ namespace back.Models
         public int Id { get; set; }
 
         [Required]
+        [Column(TypeName = "date")] 
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DataAlocacao { get; set; }
 
         // FK Funcionario

@@ -13,7 +13,72 @@ namespace back.Services.Implementations
         {
             _repository = repository;
         }
+        public async Task<IEnumerable<AlocacaoReadDTO>> GetAllAsync()
+        {
+            var alocacoes = await _repository.GetAllAsync();
 
+            if (!alocacoes.Any())
+            {
+                throw new KeyNotFoundException("Nenhuma alocação encontrada."); 
+            }
+
+            var alocacoesDto = alocacoes.Select(a => new AlocacaoReadDTO
+            {
+                Id = a.Id,
+                FuncionarioId = a.FuncionarioId,
+                LaboratorioId = a.LaboratorioId,
+                SalaId = a.SalaId,
+                NotebookId = a.NotebookId,
+                DataAlocacao = a.DataAlocacao,
+            });
+            
+            return alocacoesDto;
+        }
+
+        public async Task<AlocacaoReadDTO> GetByIdAsync(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException("Id da alocação inválido."); 
+            }
+            
+            var alocacoes = await _repository.GetByIdAsync(id);
+
+            return new AlocacaoReadDTO
+            {
+                Id = alocacoes.Id,
+                FuncionarioId = alocacoes.FuncionarioId,
+                LaboratorioId = alocacoes.LaboratorioId,
+                SalaId = alocacoes.SalaId,
+                NotebookId = alocacoes.NotebookId,
+                DataAlocacao = alocacoes.DataAlocacao,
+            };
+        }
+        
+        public async Task CreateAsync(AlocacaoCreateDTO alocacaoDto)
+        {
+            if (!ValidateAlocacao(alocacaoDto))
+            {
+                throw new ArgumentException("Combinações de alocação inválidas");
+            }
+
+            if (await _repository.FindRegister(alocacaoDto))
+            {
+                throw new InvalidOperationException("Já existe uma alocação para este recurso nesta data.");
+            }
+            
+            var alocacao = new Alocacao
+            {
+                DataAlocacao = alocacaoDto.DataAlocacao,
+                FuncionarioId = alocacaoDto.FuncionarioId,
+                LaboratorioId = alocacaoDto.LaboratorioId,
+                SalaId = alocacaoDto.SalaId,
+                NotebookId = alocacaoDto.NotebookId,
+                
+            };
+
+            await _repository.CreateAsync(alocacao);
+        }
         private bool ValidateAlocacao(AlocacaoCreateDTO alocacaoDto)
         {
             int count = 0;
@@ -39,27 +104,6 @@ namespace back.Services.Implementations
             if (count > 2) return false;
 
             return count > 0;
-        }
-
-        public async Task CreateAsync(AlocacaoCreateDTO alocacaoDto)
-        {
-            Console.WriteLine("lalalala");
-            if (!ValidateAlocacao(alocacaoDto))
-            {
-                throw new ArgumentException("Combinações de alocação inválidas");
-            }
-            
-            var alocacao = new Alocacao
-            {
-                DataAlocacao = alocacaoDto.DataAlocacao,
-                FuncionarioId = alocacaoDto.FuncionarioId,
-                LaboratorioId = alocacaoDto.LaboratorioId,
-                SalaId = alocacaoDto.SalaId,
-                NotebookId = alocacaoDto.NotebookId,
-                
-            };
-
-            await _repository.CreateAsync(alocacao);
         }
     }   
 }
