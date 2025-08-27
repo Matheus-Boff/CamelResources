@@ -25,6 +25,9 @@ builder.Services.AddScoped<INotebookService, NotebookService>();
 builder.Services.AddScoped<ISalaRepository, SalaRepository>();
 builder.Services.AddScoped<ISalaService, SalaService>();
 
+builder.Services.AddScoped<ILaboratorioRepository, LaboratorioRepository>();
+builder.Services.AddScoped<ILaboratorioService, LaboratorioService>();
+
 // --- Configuração do Swagger ---
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>

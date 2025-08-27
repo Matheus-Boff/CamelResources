@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using back.Data;
 
@@ -11,9 +12,11 @@ using back.Data;
 namespace back.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250827003718_PopulatingLaboratorios")]
+    partial class PopulatingLaboratorios
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -237,36 +240,6 @@ namespace back.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Salas");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            NumLugares = 30,
-                            Numero = 101,
-                            Projetor = true
-                        },
-                        new
-                        {
-                            Id = 2,
-                            NumLugares = 25,
-                            Numero = 102,
-                            Projetor = false
-                        },
-                        new
-                        {
-                            Id = 3,
-                            NumLugares = 50,
-                            Numero = 201,
-                            Projetor = true
-                        },
-                        new
-                        {
-                            Id = 4,
-                            NumLugares = 40,
-                            Numero = 202,
-                            Projetor = false
-                        });
                 });
 
             modelBuilder.Entity("back.Models.Alocacao", b =>
