@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using back.Data;
 
@@ -11,9 +12,11 @@ using back.Data;
 namespace back.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250827001915_PopulatingSalas")]
+    partial class PopulatingSalas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,29 +148,6 @@ namespace back.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Laboratorios");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Descricao = "Laboratório com PCs para aulas de programação",
-                            Nome = "Lab de Informática 1",
-                            NumComputadores = 20
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Descricao = "Laboratório com PCs para aulas de redes",
-                            Nome = "Lab de Informática 2",
-                            NumComputadores = 25
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Descricao = "Laboratório especializado em robótica e automação",
-                            Nome = "Lab de Robótica",
-                            NumComputadores = 15
-                        });
                 });
 
             modelBuilder.Entity("back.Models.Notebook", b =>

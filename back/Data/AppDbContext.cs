@@ -24,36 +24,24 @@ namespace back.Data
         );
 
           modelBuilder.Entity<Notebook>().HasData(
-    new Notebook 
-    { 
-        Id = 1, 
-        NroPatrimonio = "1234567",  
-        DataAquisicao = DateTime.Parse("2022-01-15"), 
-        Descricao = "Notebook para João Silva" 
-    },
-    new Notebook 
-    { 
-        Id = 2, 
-        NroPatrimonio = "9876543",  
-        DataAquisicao = DateTime.Parse("2022-06-10"), 
-        Descricao = "Notebook para Maria Souza" 
-    },
-    new Notebook 
-    { 
-        Id = 3, 
-        NroPatrimonio = "1111111",  
-        DataAquisicao = DateTime.Parse("2023-02-20"), 
-        Descricao = "Notebook para Carlos Pereira" 
-    }
-);
+            new Notebook { Id = 1, NroPatrimonio = "1234567", DataAquisicao = DateTime.Parse("2022-01-15"), Descricao = "Notebook para João Silva" },
+            new Notebook { Id = 2, NroPatrimonio = "9876543", DataAquisicao = DateTime.Parse("2022-06-10"), Descricao = "Notebook para Maria Souza" },
+            new Notebook { Id = 3, NroPatrimonio = "1111111", DataAquisicao = DateTime.Parse("2023-02-20"), Descricao = "Notebook para Carlos Pereira" }
+            );
           
-modelBuilder.Entity<Laboratorio>().HasData(
-    new Laboratorio { Id = 1, Nome = "Lab de Informática 1", NumComputadores = 20, Descricao = "Laboratório com PCs para aulas de programação" },
-    new Laboratorio { Id = 2, Nome = "Lab de Informática 2", NumComputadores = 25, Descricao = "Laboratório com PCs para aulas de redes" },
-    new Laboratorio { Id = 3, Nome = "Lab de Robótica", NumComputadores = 15, Descricao = "Laboratório especializado em robótica e automação" }
-);
-
-
+          modelBuilder.Entity<Sala>().HasData(
+              new Sala { Id = 1, Numero = 101, NumLugares = 30, Projetor = true },
+              new Sala { Id = 2, Numero = 102, NumLugares = 25, Projetor = false },
+              new Sala { Id = 3, Numero = 201, NumLugares = 50, Projetor = true },
+              new Sala { Id = 4, Numero = 202, NumLugares = 40, Projetor = false }
+              );
+          
+          modelBuilder.Entity<Laboratorio>().HasData(
+              new Laboratorio { Id = 1, Nome = "Lab de Informática 1", NumComputadores = 20, Descricao = "Laboratório com PCs para aulas de programação" },
+              new Laboratorio { Id = 2, Nome = "Lab de Informática 2", NumComputadores = 25, Descricao = "Laboratório com PCs para aulas de redes" },
+              new Laboratorio { Id = 3, Nome = "Lab de Robótica", NumComputadores = 15, Descricao = "Laboratório especializado em robótica e automação" }
+          ); 
+        
             var alocacao = modelBuilder.Entity<Alocacao>();
 
             // Delete em cascata
