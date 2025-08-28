@@ -232,7 +232,8 @@ namespace back.Services.Implementations
                 DayOfWeek = g.Key.DayOfWeek,
                 WeekDay = weekDayMapper[g.Key.DayOfWeek],
                 AllocationsAvg = g.Count() * 1.0 / g.Select(x => x.DataAlocacao.Date).Distinct().Count()
-            }).ToList();
+            })
+            .OrderByDescending(a => a.AllocationsAvg).ToList();
 
             return weekDaysDto;
         }
