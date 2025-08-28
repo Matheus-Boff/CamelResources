@@ -103,5 +103,25 @@ namespace back.Services.Implementations
 
             return count > 0;
         }
+        
+        public async Task<IEnumerable<AlocacaoReadDTO>> GetAlocacoesByUserIdAsync(int id)
+        {
+            var alocacoes = await _repository.GetAlocacoesByUserIdAsync(id);
+            
+            if (!alocacoes.Any()) throw new KeyNotFoundException("Nenhuma alocação encontrada.");
+
+            var alocacoesDto = alocacoes.Select(a => new AlocacaoReadDTO
+            {
+                Id = a.Id,
+                FuncionarioId = a.FuncionarioId,
+                LaboratorioId = a.LaboratorioId,
+                SalaId = a.SalaId,
+                NotebookId = a.NotebookId,
+                DataAlocacao = a.DataAlocacao,
+            });
+
+            return alocacoesDto;
+        }
+
     }   
 }

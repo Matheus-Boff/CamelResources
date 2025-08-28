@@ -80,5 +80,11 @@ namespace back.Repositories.Implementations
                 })
                 .ToListAsync();
         }
+        
+        public async Task<IEnumerable<Alocacao>> GetAlocacoesByUserIdAsync(int id)
+        {
+            return await _context.Alocacoes.Where(a => a.FuncionarioId == id).ToListAsync();
+        }
+
     }   
 }
