@@ -106,14 +106,14 @@ namespace back.Services.Implementations
             }
         }
 
-        public async Task<IDictionary<DateTime, IEnumerable<AlocacaoReadDTO>>> GetResourcesByDateRange(
+        public async Task<IEnumerable<ResourcesByDateDto>> GetResourcesByDateRange(
             DateTime startDate, DateTime endDate)
         {
             if (endDate < startDate) throw new ArgumentException("A data final não pode ser menor que a data inicial.");
             
             var allocationsInRange = await _alocacaoRepository.FindByDateRange(startDate, endDate);
 
-            var allocationsDictionary = new Dictionary<DateTime, IEnumerable<AlocacaoReadDTO>>();
+            var resourcesByDateList = new List<ResourcesByDateDto>();
 
             for (var date = startDate.Date; date <= endDate.Date; date = date.AddDays(1))
             {
@@ -129,14 +129,21 @@ namespace back.Services.Implementations
                     SalaId = d.SalaId,
                     FuncionarioId = d.FuncionarioId,
                     NotebookId = d.NotebookId
-                });
-                
-                if (allocationsDto.Any()) allocationsDictionary[date] = allocationsDto;
+                }).ToList();
+
+                if (allocationsDto.Any())
+                {
+                    resourcesByDateList.Add(new ResourcesByDateDto
+                    {
+                        Data = date,
+                        Alocacao = allocationsDto
+                    });
+                }
             }
 
-            if (allocationsDictionary.Count == 0) throw new KeyNotFoundException("Nenhum valor encontrado");
+            if (resourcesByDateList.Count == 0) throw new KeyNotFoundException("Nenhum valor encontrado");
 
-            return  allocationsDictionary;
+            return  resourcesByDateList;
         }
     }    
 }

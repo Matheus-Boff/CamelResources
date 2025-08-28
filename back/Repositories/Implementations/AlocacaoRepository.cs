@@ -58,5 +58,10 @@ namespace back.Repositories.Implementations
                || alocacaoDto.NotebookId != null &&  a.NotebookId == alocacaoDto.NotebookId 
                 || alocacaoDto.SalaId != null && a.SalaId == alocacaoDto.SalaId));
         }
+
+        public async Task<IEnumerable<Alocacao>> OrderByResource()
+        {
+            throw new NotImplementedException();
+        }
     }   
 }

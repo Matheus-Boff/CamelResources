@@ -7,6 +7,6 @@ namespace back.Services.Interfaces
     public interface IStatusService
     {
         Task<IEnumerable<object>> GetAvaiableResource(DateTime date, ResourceType resourceType);
-        Task<IDictionary<DateTime, IEnumerable<AlocacaoReadDTO>>> GetResourcesByDateRange(DateTime startDate, DateTime endDate);
+        Task<IEnumerable<ResourcesByDateDto>> GetResourcesByDateRange(DateTime startDate, DateTime endDate);
     }    
 }
