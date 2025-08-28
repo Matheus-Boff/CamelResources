@@ -105,5 +105,39 @@ namespace back.Services.Implementations
                     throw new ArgumentException("Tipo de recurso não suportado");
             }
         }
+
+        public async Task<IDictionary<DateTime, IEnumerable<AlocacaoReadDTO>>> GetResourcesByDateRange(
+            DateTime startDate, DateTime endDate)
+        {
+            if (endDate < startDate)
+            {
+                throw new ArgumentException("A data final não pode ser menor que a data inicial.");
+            }
+            
+            var allocationsInRange = await _alocacaoRepository.FindByDateRange(startDate, endDate);
+
+            var allocationsDictionary = new Dictionary<DateTime, IEnumerable<AlocacaoReadDTO>>();
+
+            for (var date = startDate.Date; date <= endDate.Date; date = date.AddDays(1))
+            {
+                var dailyAllocations = allocationsInRange
+                    .Where(a => a.DataAlocacao.Date == date)
+                    .ToList();
+
+                var allocationsDto = dailyAllocations.Select(d => new AlocacaoReadDTO
+                {
+                    Id = d.Id,
+                    DataAlocacao = d.DataAlocacao,
+                    LaboratorioId = d.LaboratorioId,
+                    SalaId = d.SalaId,
+                    FuncionarioId = d.FuncionarioId,
+                    NotebookId = d.NotebookId
+                });
+                
+                if (allocationsDto.Any()) allocationsDictionary[date] = allocationsDto;
+            }
+
+            return allocationsDictionary;
+        }
     }    
 }
