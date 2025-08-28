@@ -1,7 +1,7 @@
 ﻿using back.Models.Enums;
 
 namespace back.DTOs
-{ 
+{
     public class ResourcesByDateDto
     {
         public DateTime Data { get; set; }
@@ -17,10 +17,13 @@ namespace back.DTOs
         public LaboratorioReadDTO? Laboratorio { get; set; }
         public SalaReadDTO? Sala { get; set; }
     }
-    
+
     public class ResourcesPerWeekDayDto
     {
-        public DayOfWeek WeekDay { get; set; }
+        public DayOfWeek DayOfWeek { get; set; }
         public double AllocationsAvg { get; set; }
+
+        public string? WeekDay { get; set; }
     }
+
 }

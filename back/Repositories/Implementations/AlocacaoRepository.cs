@@ -90,10 +90,11 @@ namespace back.Repositories.Implementations
             DateTime startDate, DateTime endDate)
         {
             return await _context.Alocacoes
-                .GroupBy(a => a.DataAlocacao.DayOfWeek)
+                .Where(a => a.DataAlocacao.Date >= startDate && a.DataAlocacao.Date <= endDate)
+                .GroupBy(a => a.DataAlocacao)
                 .Select(g => new ResourcesPerWeekDayDto 
                 {
-                    WeekDay = g.Key,
+                    DayOfWeek = g.Key.DayOfWeek,
                     AllocationsAvg = g.Count() * 1.0 / g.Select(x => x.DataAlocacao.Date).Distinct().Count()
                 })
                 .ToListAsync();

@@ -13,6 +13,16 @@ namespace back.Services.Implementations
         private readonly ISalaRepository _salaRepository;
         private readonly ILaboratorioRepository _laboratorioRepository;
 
+        private readonly Dictionary<DayOfWeek, string> weekDayMapper = new Dictionary<DayOfWeek, string>() {
+            { DayOfWeek.Sunday, "Domingo" },
+            { DayOfWeek.Monday, "Segunda-feira" },
+            { DayOfWeek.Tuesday, "Terça-feira" },
+            { DayOfWeek.Wednesday, "Quarta-feira" },
+            { DayOfWeek.Thursday, "Quinta-feira" },
+            { DayOfWeek.Friday, "Sexta-feira" },
+            { DayOfWeek.Saturday, "Sábado" }
+        };
+
         public StatusService(IAlocacaoRepository alocacaoRepository, INotebookRepository notebookRepository,
             ISalaRepository salaRepository, ILaboratorioRepository laboratorioRepository)
         {
@@ -91,7 +101,6 @@ namespace back.Services.Implementations
         public async Task<IEnumerable<object>> GetAvaiableResource(DateTime date, ResourceType resourceType)
         {
             var allocations = await _alocacaoRepository.FindByDateAsync(date);
-            Console.WriteLine(allocations.ToString());
 
             switch (resourceType)
             {
@@ -203,7 +212,16 @@ namespace back.Services.Implementations
         public async Task<IEnumerable<ResourcesPerWeekDayDto>> GetResourcesPerWeekDayByDateRangeAsync(DateTime startDate,
             DateTime endDate)
         {
-            throw new NotImplementedException();
+            var weekDaysDto = await _alocacaoRepository.GetResourcesPerWeekDayByDateRangeAsync(startDate, endDate);
+
+            if (!weekDaysDto.Any()) throw new KeyNotFoundException("Nenhum valor encontrado");
+
+            foreach (var w in weekDaysDto)
+            {
+                w.WeekDay = weekDayMapper[w.DayOfWeek];
+            }
+            
+            return weekDaysDto;
         }
 
     }    
