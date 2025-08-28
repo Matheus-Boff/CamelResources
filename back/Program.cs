@@ -38,6 +38,8 @@ builder.Services.AddScoped<ILaboratorioService, LaboratorioService>();
 builder.Services.AddScoped<IAlocacaoRepository, AlocacaoRepository>();
 builder.Services.AddScoped<IAlocacaoService, AlocacaoService>();
 
+builder.Services.AddScoped<IStatusService, StatusService>();
+
 // --- Configuração do Swagger ---
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>

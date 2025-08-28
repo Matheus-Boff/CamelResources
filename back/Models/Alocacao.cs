@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using back.Models.Enums;
 
 namespace back.Models
 {
@@ -11,6 +12,8 @@ namespace back.Models
         [Column(TypeName = "date")] 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DataAlocacao { get; set; }
+        
+        public ResourceType ResourceType { get; set; }
 
         // FK Funcionario
         public int FuncionarioId { get; set; }
@@ -27,5 +30,7 @@ namespace back.Models
         // FK Laboratorio
         public int? LaboratorioId { get; set; }
         public Laboratorio? Laboratorio { get; set; }
+        
+        
     }   
 }

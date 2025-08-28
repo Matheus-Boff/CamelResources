@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using back.Data;
 
@@ -11,9 +12,11 @@ using back.Data;
 namespace back.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250827233639_AddingResourceTypeField")]
+    partial class AddingResourceTypeField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,7 +103,7 @@ namespace back.Migrations
                         {
                             Id = 1,
                             Cargo = "Programador Pleno",
-                            DataAdmissao = new DateTime(2022, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataAdmissao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Matricula = "1234567",
                             Nome = "João Silva"
                         },
@@ -108,7 +111,7 @@ namespace back.Migrations
                         {
                             Id = 2,
                             Cargo = "Analista",
-                            DataAdmissao = new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataAdmissao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Matricula = "9876543",
                             Nome = "Maria Souza"
                         },
@@ -116,7 +119,7 @@ namespace back.Migrations
                         {
                             Id = 3,
                             Cargo = "Estagiário",
-                            DataAdmissao = new DateTime(2023, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataAdmissao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Matricula = "1111111",
                             Nome = "Carlos Pereira"
                         });

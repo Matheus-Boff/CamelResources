@@ -31,6 +31,11 @@ namespace back.Repositories.Implementations
             
             return alocacao;
         }
+
+        public async Task<IEnumerable<Alocacao>> FindByDateAsync(DateTime date)
+        {
+            return await _context.Alocacoes.Where(a => a.DataAlocacao == date).ToListAsync();
+        }
         
         public async Task CreateAsync(Alocacao alocacao)
         {
