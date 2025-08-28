@@ -17,28 +17,28 @@ namespace back.Controllers
             _service = service;
         }
 
-        [HttpGet("notebook")]
+        [HttpGet("Notebook")]
         public async Task<IActionResult> GetAvailableNotebooks([FromQuery] DateTime date)
         {
             var notebooks = await _service.GetAvaiableResource(date, ResourceType.Notebook);
             return Ok(notebooks);
         }
 
-        [HttpGet("lab")]
+        [HttpGet("Lab")]
         public async Task<IActionResult> GetAvailableLabs([FromQuery] DateTime date)
         {
             var labs = await _service.GetAvaiableResource(date, ResourceType.Laboratorio);
             return Ok(labs);
         }
 
-        [HttpGet("sala")]
+        [HttpGet("Sala")]
         public async Task<IActionResult> GetAvailableSalas([FromQuery] DateTime date)
         {
             var salas = await _service.GetAvaiableResource(date, ResourceType.Sala);
             return Ok(salas);
         }
 
-        [HttpGet("alocationsRange")]
+        [HttpGet("AlocationsRange")]
         public async Task<IActionResult> GetAllocationsByDateRange([FromQuery] DateTime startDate,
             [FromQuery] DateTime endDate)
         {
