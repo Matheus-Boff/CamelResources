@@ -1,1 +1,56 @@
-<p>relatorio-page works!</p>
+<div class="status-page">
+    <div class="date-range">
+        <h3>De</h3>
+        <input type="date" [(ngModel)]="startDate" (change)="onRangeChange()">
+        <h3>Até</h3>
+        <input type="date" [(ngModel)]="endDate" (change)="onRangeChange()">
+        <button type="button" (click)="filterBookings()" [disabled]="!isRangeValid">Filtrar</button>
+    </div>
+
+    <div class="info-date-range">
+        <div class="bookings-per-day">
+        <div class="booking-container">
+            <h3>Reservados Por Dia</h3>
+
+            <div class="date-selected-container">
+            <button class="nav-btn" type="button" (click)="prevDay()" [disabled]="!canGoPrev">‹</button>
+            <h4 class="date-selected">{{ selectedDate | date:'dd/MM' }}</h4>
+            <button class="nav-btn" type="button" (click)="nextDay()" [disabled]="!canGoNext">›</button>
+            </div>
+
+            <div class="all-bookings">
+            <app-resources-board></app-resources-board>
+            </div>
+        </div>
+        </div>
+
+        <div class="right-container">
+        <div class="total-bookings-per-resource">
+            <h3>Total de Reservas por Recurso</h3>
+            <table>
+            <thead>
+                <tr>
+                <th>Tipo De Recurso</th>
+                <th>Reservas</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of totalsByResource">
+                <td>{{ row.tipo }}</td>
+                <td>{{ row.qtd }}</td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+
+        <div class="most-busy-days">
+            <h3>Dias Mais Movimentados</h3>
+            <ul>
+            <li *ngFor="let d of busiestDays">
+                {{ d.date | date:'dd/MM' }} - {{ d.reservas }} reservas
+            </li>
+            </ul>
+        </div>
+        </div>
+    </div>
+</div>
