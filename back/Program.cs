@@ -1,4 +1,5 @@
 using back.Data;
+using back.Middleware;
 using back.Repositories.Implementations;
 using back.Repositories.Interfaces;
 using back.Services.Implementations;
@@ -7,6 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//criando a permissão para o front poder fazer requisições
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("permissaoDeRequisicoesFront",
+    policy => policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
+});
 
 // Adicionar serviços de controller
 builder.Services.AddControllers();
@@ -17,6 +25,18 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
 builder.Services.AddScoped<IFuncionarioService, FuncionarioService>();
+
+builder.Services.AddScoped<INotebookRepository, NotebookRepository>();
+builder.Services.AddScoped<INotebookService, NotebookService>();
+
+builder.Services.AddScoped<ISalaRepository, SalaRepository>();
+builder.Services.AddScoped<ISalaService, SalaService>();
+
+builder.Services.AddScoped<ILaboratorioRepository, LaboratorioRepository>();
+builder.Services.AddScoped<ILaboratorioService, LaboratorioService>();
+
+builder.Services.AddScoped<IAlocacaoRepository, AlocacaoRepository>();
+builder.Services.AddScoped<IAlocacaoService, AlocacaoService>();
 
 // --- Configuração do Swagger ---
 builder.Services.AddEndpointsApiExplorer();
@@ -32,6 +52,9 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+// implementando a permissão para o front poder fazer requisições
+app.UseCors("permissaoDeRequisicoesFront");
+
 // Habilitar Swagger em desenvolvimento (pode habilitar em produção se quiser)
 if (app.Environment.IsDevelopment())
 {
@@ -43,6 +66,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
