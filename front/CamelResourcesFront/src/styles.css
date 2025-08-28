@@ -29,11 +29,11 @@ header {
     justify-content: space-between;
     padding: 1rem;
     background-color: var(--header-background-color);
+    
 
     img {
         max-width: 4rem;
         height: auto;
-        margin-left: 1rem;
     }
 
     a {
@@ -79,7 +79,13 @@ header .header-links a:hover, header a:hover {
     height: fit-content;
 }
 
-.booking-container {
+.right-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.booking-container, .my-requests {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -90,6 +96,8 @@ header .header-links a:hover, header a:hover {
     color: var(--font-color-1);
         h3 {
             font-size: 1.5rem;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
         }
 }
 
@@ -144,4 +152,13 @@ app-resources-board article {
     background-color: var(--background-color-3);
     width: 95%;
     height: 100%;
+}
+
+app-my-requests {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
 }
