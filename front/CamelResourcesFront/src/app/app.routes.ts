@@ -8,7 +8,7 @@ import { ResourcesPageComponent } from './resources-page/resources-page.componen
 import { ModalViewComponent } from './modal-view/modal-view.component';
 
 export const routes: Routes = [
-    { path: '', component: ModalViewComponent },
+    { path: '', component: Login },
     { path: 'home', component: HomePage },
     { path: 'laboratorios', component: LaboratoriosPage },
     { path: 'salas', component: SalasPage },
