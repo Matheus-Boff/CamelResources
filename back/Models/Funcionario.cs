@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace back.Models
 {
-    public class Funcionario {
+    public class Funcionario  {
         [Key]
         public int Id { get; set; }
-
+        
         [Required]
         public string Matricula { get; set; }
         public string Nome { get; set; }

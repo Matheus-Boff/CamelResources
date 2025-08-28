@@ -60,31 +60,9 @@ namespace back.Repositories.Implementations
                 || alocacaoDto.SalaId != null && a.SalaId == alocacaoDto.SalaId));
         }
 
-        public async Task<IEnumerable<ResourcesCountDto>> GroupByResourceAsync(DateTime startDate, DateTime endDate)
-        {
-            return await _context.Alocacoes
-                .Where(a => a.DataAlocacao.Date >= startDate && a.DataAlocacao.Date <= endDate)
-                .GroupBy(a => new
-                {
-                    NotebookId = a.NotebookId,
-                    LaboratorioId = a.LaboratorioId,
-                    SalaId = a.SalaId
-                })
-                .Select(g => new ResourcesCountDto
-                {
-                    Id = g.Key.NotebookId ?? g.Key.LaboratorioId ?? g.Key.SalaId ?? 0,
-                    Count = g.Count(),
-                    ResourceType = g.Key.NotebookId != null ? ResourceType.Notebook :
-                        g.Key.LaboratorioId != null ? ResourceType.Laboratorio :
-                        g.Key.SalaId != null ? ResourceType.Sala : ResourceType.Unknown
-                })
-                .ToListAsync();
-        }
-        
         public async Task<IEnumerable<Alocacao>> GetAlocacoesByUserIdAsync(int id)
         {
             return await _context.Alocacoes.Where(a => a.FuncionarioId == id).ToListAsync();
         }
-
     }   
 }
