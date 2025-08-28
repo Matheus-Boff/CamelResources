@@ -62,7 +62,7 @@ namespace back.Services.Implementations
                 throw new ArgumentException("Combinações de alocação inválidas");
             }
 
-            if (await _repository.FindRegister(alocacaoDto))
+            if (await _repository.FindRegisterAsync(alocacaoDto))
             {
                 throw new InvalidOperationException("Já existe uma alocação para este recurso nesta data.");
             }

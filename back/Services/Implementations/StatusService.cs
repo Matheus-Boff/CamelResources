@@ -111,7 +111,7 @@ namespace back.Services.Implementations
         {
             if (endDate < startDate) throw new ArgumentException("A data final não pode ser menor que a data inicial.");
             
-            var allocationsInRange = await _alocacaoRepository.FindByDateRange(startDate, endDate);
+            var allocationsInRange = await _alocacaoRepository.FindByDateRangeAsync(startDate, endDate);
 
             var resourcesByDateList = new List<ResourcesByDateDto>();
 
@@ -141,9 +141,63 @@ namespace back.Services.Implementations
                 }
             }
 
-            if (resourcesByDateList.Count == 0) throw new KeyNotFoundException("Nenhum valor encontrado");
+            if (!resourcesByDateList.Any()) throw new KeyNotFoundException("Nenhum valor encontrado");
 
             return  resourcesByDateList;
+        }
+
+        private async Task<ResourcesCountDto> GetResourceDetails(ResourcesCountDto resourcesDto)
+        {
+            switch (resourcesDto.ResourceType)
+            {
+                case ResourceType.Notebook:
+                    var notebook = await _notebookRepository.GetByIdAsync(resourcesDto.Id);
+                    resourcesDto.Notebook = new NotebookReadDTO
+                    {
+                        Descricao =  notebook.Descricao,
+                        Id = notebook.Id,
+                        NroPatrimonio = notebook.NroPatrimonio,
+                        DataAquisicao = notebook.DataAquisicao
+                    };
+                    break;
+                case ResourceType.Sala:
+                    var sala =  await _salaRepository.GetByIdAsync(resourcesDto.Id);
+                    resourcesDto.Sala = new SalaReadDTO
+                    {
+                        Id = sala.Id,
+                        Numero = sala.Numero,
+                        NumLugares = sala.NumLugares,
+                        Projetor = sala.Projetor,
+                    };
+                    break;
+                case ResourceType.Laboratorio:
+                    var laboratorio = await _laboratorioRepository.GetByIdAsync(resourcesDto.Id);
+                    resourcesDto.Laboratorio = new LaboratorioReadDTO
+                    {
+                        Id = laboratorio.Id,
+                        Nome = laboratorio.Nome,
+                        Descricao = laboratorio.Descricao,
+                        NumComputadores = laboratorio.NumComputadores,
+                    };
+                    break;
+                default:
+                    throw new ArgumentException("Tipo de recurso não suportado");
+            }
+
+            return resourcesDto;
+        }
+
+        public async Task<IEnumerable<ResourcesCountDto>> GetResourcesCountByDateRange(DateTime startDate, DateTime endDate) {
+            var resourcesCount = (await _alocacaoRepository.GroupByResourceAsync(startDate, endDate)).ToList();
+            
+            if (!resourcesCount.Any()) throw new KeyNotFoundException("Nenhum valor encontrado");
+            
+            for (int i = 0; i < resourcesCount.Count; i++)
+            {
+                resourcesCount[i] = await GetResourceDetails(resourcesCount[i]);
+            }
+
+            return resourcesCount;
         }
     }    
 }

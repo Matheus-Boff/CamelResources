@@ -38,12 +38,20 @@ namespace back.Controllers
             return Ok(salas);
         }
 
-        [HttpGet("AlocationsRange")]
+        [HttpGet("AlocationsByRange")]
         public async Task<IActionResult> GetAllocationsByDateRange([FromQuery] DateTime startDate,
             [FromQuery] DateTime endDate)
         {
             var alocacoes = await _service.GetResourcesByDateRange(startDate, endDate);
             return Ok(alocacoes);
+        }
+
+        [HttpGet("ResourcesCountByRange")]
+        public async Task<IActionResult> GetResourcesCount([FromQuery] DateTime startDate,
+            [FromQuery] DateTime endDate)
+        {
+            var recursos =  await _service.GetResourcesCountByDateRange(startDate, endDate);
+            return Ok(recursos);
         }
     }
 }
