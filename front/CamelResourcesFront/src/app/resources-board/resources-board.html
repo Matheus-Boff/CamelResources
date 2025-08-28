@@ -1,0 +1,13 @@
+<ng-container [ngSwitch]="tipo">
+    <ng-container *ngSwitchCase="'Notebook'">
+        <article *ngFor="let n of data.Notebook">{{ n }}</article>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'Sala'">
+        <article *ngFor="let s of data.Sala">{{ s }}</article>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'Laboratorio'">
+        <article *ngFor="let l of data.Laboratorio">{{ l }}</article>
+    </ng-container>
+</ng-container>
