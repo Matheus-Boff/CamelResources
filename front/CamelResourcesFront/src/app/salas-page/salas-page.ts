@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { ResourcesPageComponent } from '../resources-page/resources-page.component';
 
 @Component({
   selector: 'app-salas-page',
-  imports: [],
+  standalone: true,
+  imports: [ResourcesPageComponent],
   templateUrl: './salas-page.html',
-  styleUrl: './salas-page.css'
+  styleUrls: ['./salas-page.css']
 })
 export class SalasPage {
 
