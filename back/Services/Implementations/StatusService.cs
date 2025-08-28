@@ -109,10 +109,7 @@ namespace back.Services.Implementations
         public async Task<IDictionary<DateTime, IEnumerable<AlocacaoReadDTO>>> GetResourcesByDateRange(
             DateTime startDate, DateTime endDate)
         {
-            if (endDate < startDate)
-            {
-                throw new ArgumentException("A data final não pode ser menor que a data inicial.");
-            }
+            if (endDate < startDate) throw new ArgumentException("A data final não pode ser menor que a data inicial.");
             
             var allocationsInRange = await _alocacaoRepository.FindByDateRange(startDate, endDate);
 
@@ -137,7 +134,9 @@ namespace back.Services.Implementations
                 if (allocationsDto.Any()) allocationsDictionary[date] = allocationsDto;
             }
 
-            return allocationsDictionary;
+            if (allocationsDictionary.Count == 0) throw new KeyNotFoundException("Nenhum valor encontrado");
+
+            return  allocationsDictionary;
         }
     }    
 }
