@@ -29,6 +29,13 @@ namespace back.Controllers
             var alocacao = await _service.GetByIdAsync(id);
             return Ok(alocacao);
         }
+        
+        [HttpGet("usuario/{id}")]
+        public async Task<IActionResult> GetByUserId(int id)
+        {
+            var alocacoes = await _service.GetAlocacoesByUserIdAsync(id);
+            return Ok(alocacoes);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] AlocacaoCreateDTO alocacaoDto)
