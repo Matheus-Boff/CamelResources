@@ -9,5 +9,6 @@ public interface IAlocacaoRepository
     Task<Alocacao> GetByIdAsync(int id);
     Task CreateAsync(Alocacao alocacao);
     Task<bool> FindRegister(AlocacaoCreateDTO alocacao);
-
+    Task<IEnumerable<Alocacao>> FindByDateAsync(DateTime date);
+    Task<IEnumerable<Alocacao>> FindByDateRange(DateTime startDate, DateTime endDate);
 }

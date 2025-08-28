@@ -69,7 +69,7 @@ namespace back.Services.Implementations
             
             var alocacao = new Alocacao
             {
-                DataAlocacao = alocacaoDto.DataAlocacao,
+                DataAlocacao = alocacaoDto.DataAlocacao.Date,
                 FuncionarioId = alocacaoDto.FuncionarioId,
                 LaboratorioId = alocacaoDto.LaboratorioId,
                 SalaId = alocacaoDto.SalaId,
@@ -85,8 +85,6 @@ namespace back.Services.Implementations
             if (alocacaoDto.LaboratorioId.HasValue) count++;
             if (alocacaoDto.NotebookId.HasValue) count++;
             if (alocacaoDto.SalaId.HasValue) count++;
-            
-            Console.WriteLine(count);
 
             if (alocacaoDto.LaboratorioId.HasValue && count > 1)
             {

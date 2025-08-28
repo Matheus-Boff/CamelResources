@@ -58,7 +58,7 @@ public class NotebookService: INotebookService
         {
             NroPatrimonio = notebookDto.NroPatrimonio,
             Descricao = notebookDto.Descricao,
-            DataAquisicao = notebookDto.DataAquisicao,
+            DataAquisicao = notebookDto.DataAquisicao.Date,
         };
         
         await _repository.CreateAsync(notebook);
@@ -75,7 +75,7 @@ public class NotebookService: INotebookService
         {
             NroPatrimonio = notebookDto.NroPatrimonio,
             Descricao = notebookDto.Descricao,
-            DataAquisicao = notebookDto.DataAquisicao,
+            DataAquisicao = notebookDto.DataAquisicao.Date,
         };
         
         await _repository.UpdateAsync(id, notebook);
