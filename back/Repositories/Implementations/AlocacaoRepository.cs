@@ -86,5 +86,19 @@ namespace back.Repositories.Implementations
             return await _context.Alocacoes.Where(a => a.FuncionarioId == id).ToListAsync();
         }
 
+        public async Task<IEnumerable<ResourcesPerWeekDayDto>> GetResourcesPerWeekDayByDateRangeAsync(
+            DateTime startDate, DateTime endDate)
+        {
+            return await _context.Alocacoes
+                .GroupBy(a => a.DataAlocacao.DayOfWeek)
+                .Select(g => new ResourcesPerWeekDayDto 
+                {
+                    WeekDay = g.Key,
+                    AllocationsAvg = g.Count() * 1.0 / g.Select(x => x.DataAlocacao.Date).Distinct().Count()
+                })
+                .ToListAsync();
+        }
+
+
     }   
 }

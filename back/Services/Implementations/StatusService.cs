@@ -199,5 +199,12 @@ namespace back.Services.Implementations
 
             return resourcesCount;
         }
+
+        public async Task<IEnumerable<ResourcesPerWeekDayDto>> GetResourcesPerWeekDayByDateRangeAsync(DateTime startDate,
+            DateTime endDate)
+        {
+            throw new NotImplementedException();
+        }
+
     }    
 }

@@ -38,6 +38,14 @@ namespace back.Controllers
             return Ok(salas);
         }
 
+        [HttpGet("WeekDay")]
+        public async Task<IActionResult> GetWeekDaysByDateRange([FromQuery] DateTime startDate,
+            [FromQuery] DateTime endDate)
+        {
+            var weekDays = await _service.GetResourcesPerWeekDayByDateRangeAsync(startDate, endDate);
+            return Ok(weekDays);
+        }
+
         [HttpGet("AlocationsByRange")]
         public async Task<IActionResult> GetAllocationsByDateRange([FromQuery] DateTime startDate,
             [FromQuery] DateTime endDate)

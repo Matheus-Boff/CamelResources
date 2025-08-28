@@ -17,4 +17,10 @@ namespace back.DTOs
         public LaboratorioReadDTO? Laboratorio { get; set; }
         public SalaReadDTO? Sala { get; set; }
     }
+    
+    public class ResourcesPerWeekDayDto
+    {
+        public DayOfWeek WeekDay { get; set; }
+        public double AllocationsAvg { get; set; }
+    }
 }

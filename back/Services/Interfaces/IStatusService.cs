@@ -9,5 +9,6 @@ namespace back.Services.Interfaces
         Task<IEnumerable<object>> GetAvaiableResource(DateTime date, ResourceType resourceType);
         Task<IEnumerable<ResourcesByDateDto>> GetResourcesByDateRange(DateTime startDate, DateTime endDate);
         Task<IEnumerable<ResourcesCountDto>>  GetResourcesCountByDateRange(DateTime startDate, DateTime endDate);
+        Task<IEnumerable<ResourcesPerWeekDayDto>> GetResourcesPerWeekDayByDateRangeAsync(DateTime startDate, DateTime endDate);
     }    
 }
