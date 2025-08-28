@@ -8,7 +8,8 @@ public interface IAlocacaoRepository
     Task<IEnumerable<Alocacao>> GetAllAsync();
     Task<Alocacao> GetByIdAsync(int id);
     Task CreateAsync(Alocacao alocacao);
-    Task<bool> FindRegister(AlocacaoCreateDTO alocacao);
+    Task<bool> FindRegisterAsync(AlocacaoCreateDTO alocacao);
     Task<IEnumerable<Alocacao>> FindByDateAsync(DateTime date);
-    Task<IEnumerable<Alocacao>> FindByDateRange(DateTime startDate, DateTime endDate);
+    Task<IEnumerable<Alocacao>> FindByDateRangeAsync(DateTime startDate, DateTime endDate);
+    Task<IEnumerable<ResourcesCountDto>> GroupByResourceAsync(DateTime startDate, DateTime endDate);
 }
