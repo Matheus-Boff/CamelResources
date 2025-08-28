@@ -1,0 +1,37 @@
+.modal-container {
+  background: #d8e6f5;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  padding: 32px 24px;
+  max-width: 500px;
+  margin: 40px auto;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.modal-title {
+  color: #233142;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.modal-divider {
+  border: none;
+  border-top: 2px solid #233142;
+  margin: 0 auto 16px auto;
+  width: 90%;
+}
+
+.modal-info {
+  color: #233142;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+
+.modal-desc {
+  color: #233142;
+  font-size: 1rem;
+  text-align: justify;
+}

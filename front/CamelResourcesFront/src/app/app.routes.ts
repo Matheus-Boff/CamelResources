@@ -5,6 +5,7 @@ import { LaboratoriosPage } from './laboratorios-page/laboratorios-page';
 import { SalasPage } from './salas-page/salas-page';
 import { RelatorioPage } from './relatorio-page/relatorio-page';
 import { ResourcesPageComponent } from './resources-page/resources-page.component';
+import { ModalViewComponent } from './modal-view/modal-view.component';
 
 export const routes: Routes = [
     { path: '', component: Login },
