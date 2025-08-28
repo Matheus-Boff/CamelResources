@@ -1,0 +1,54 @@
+.modal-container {
+  background: #dbe6ea;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  padding: 32px 24px;
+  max-width: 500px;
+  margin: 40px auto;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.modal-title {
+  color: #1a2c3a;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.modal-divider {
+  border: none;
+  border-top: 2px solid #1a2c3a;
+  margin: 0 auto 16px auto;
+  width: 90%;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  color: #233142;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #b0bec5;
+  font-size: 1rem;
+}
+
+.btn {
+  background: #233142;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+}
