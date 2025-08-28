@@ -6,7 +6,7 @@ using back.Services.Interfaces;
 
 namespace back.Services.Implementations
 {
-    public class StatusService: IStatusService
+    public class StatusService : IStatusService
     {
         private readonly IAlocacaoRepository _alocacaoRepository;
         private readonly INotebookRepository _notebookRepository;
@@ -35,12 +35,12 @@ namespace back.Services.Implementations
         private async Task<IEnumerable<NotebookReadDTO>> GetAllNotebooks(IEnumerable<Alocacao> allocations)
         {
             var notebooks = await _notebookRepository.GetAllAsync();
-            
+
             var allocatedNotebookIds = allocations
                 .Where(a => a.NotebookId.HasValue)
                 .Select(a => a.NotebookId.Value)
                 .ToHashSet();
-            
+
             var availableNotebooks = notebooks
                 .Where(n => !allocatedNotebookIds.Contains(n.Id))
                 .Select(n => new NotebookReadDTO
@@ -53,16 +53,16 @@ namespace back.Services.Implementations
 
             return availableNotebooks;
         }
-        
+
         private async Task<IEnumerable<LaboratorioReadDTO>> GetAllLabs(IEnumerable<Alocacao> allocations)
         {
             var labs = await _laboratorioRepository.GetAllAsync();
-            
+
             var allocatedLabsIds = allocations
                 .Where(a => a.LaboratorioId.HasValue)
                 .Select(a => a.LaboratorioId.Value)
                 .ToHashSet();
-            
+
             var avaiableLabs = labs
                 .Where(l => !allocatedLabsIds.Contains(l.Id))
                 .Select(l => new LaboratorioReadDTO
@@ -79,12 +79,12 @@ namespace back.Services.Implementations
         private async Task<IEnumerable<SalaReadDTO>> GetAllSalas(IEnumerable<Alocacao> allocations)
         {
             var salas = await _salaRepository.GetAllAsync();
-            
+
             var allocatedSalasIds = allocations
                 .Where(a => a.SalaId.HasValue)
                 .Select(a => a.SalaId.Value)
                 .ToHashSet();
-            
+
             var avaiableSalas = salas
                 .Where(s => !allocatedSalasIds.Contains(s.Id))
                 .Select(s => new SalaReadDTO
@@ -97,7 +97,7 @@ namespace back.Services.Implementations
 
             return avaiableSalas;
         }
-        
+
         public async Task<IEnumerable<object>> GetAvaiableResource(DateTime date, ResourceType resourceType)
         {
             var allocations = await _alocacaoRepository.FindByDateAsync(date);
@@ -119,7 +119,7 @@ namespace back.Services.Implementations
             DateTime startDate, DateTime endDate)
         {
             if (endDate < startDate) throw new ArgumentException("A data final não pode ser menor que a data inicial.");
-            
+
             var allocationsInRange = await _alocacaoRepository.FindByDateRangeAsync(startDate, endDate);
 
             var resourcesByDateList = new List<ResourcesByDateDto>();
@@ -152,7 +152,7 @@ namespace back.Services.Implementations
 
             if (!resourcesByDateList.Any()) throw new KeyNotFoundException("Nenhum valor encontrado");
 
-            return  resourcesByDateList;
+            return resourcesByDateList;
         }
 
         private async Task<ResourcesCountDto> GetResourceDetails(ResourcesCountDto resourcesDto)
@@ -163,14 +163,14 @@ namespace back.Services.Implementations
                     var notebook = await _notebookRepository.GetByIdAsync(resourcesDto.Id);
                     resourcesDto.Notebook = new NotebookReadDTO
                     {
-                        Descricao =  notebook.Descricao,
+                        Descricao = notebook.Descricao,
                         Id = notebook.Id,
                         NroPatrimonio = notebook.NroPatrimonio,
                         DataAquisicao = notebook.DataAquisicao
                     };
                     break;
                 case ResourceType.Sala:
-                    var sala =  await _salaRepository.GetByIdAsync(resourcesDto.Id);
+                    var sala = await _salaRepository.GetByIdAsync(resourcesDto.Id);
                     resourcesDto.Sala = new SalaReadDTO
                     {
                         Id = sala.Id,
@@ -196,33 +196,45 @@ namespace back.Services.Implementations
             return resourcesDto;
         }
 
-        public async Task<IEnumerable<ResourcesCountDto>> GetResourcesCountByDateRange(DateTime startDate, DateTime endDate) {
-            var resourcesCount = (await _alocacaoRepository.GroupByResourceAsync(startDate, endDate)).ToList();
-            
-            if (!resourcesCount.Any()) throw new KeyNotFoundException("Nenhum valor encontrado");
-            
-            for (int i = 0; i < resourcesCount.Count; i++)
-            {
-                resourcesCount[i] = await GetResourceDetails(resourcesCount[i]);
-            }
+        public async Task<IEnumerable<ResourcesCountDto>> GetResourcesCountByDateRangeAsync(DateTime startDate, DateTime endDate)
+        {
+            var alocacoes = await _alocacaoRepository.FindByDateRangeAsync(startDate, endDate);
 
-            return resourcesCount;
+            var resourcesCountDto = alocacoes
+                .GroupBy(a => new
+                {
+                    a.NotebookId,
+                    a.LaboratorioId,
+                    a.SalaId
+                })
+                .Select(g => new ResourcesCountDto
+                {
+                    Id = g.Key.NotebookId ?? g.Key.LaboratorioId ?? g.Key.SalaId ?? 0,
+                    Count = g.Count(),
+                    ResourceType = g.Key.NotebookId != null ? ResourceType.Notebook :
+                        g.Key.LaboratorioId != null ? ResourceType.Laboratorio :
+                        g.Key.SalaId != null ? ResourceType.Sala : ResourceType.Unknown
+                });
+
+            return resourcesCountDto;
         }
 
-        public async Task<IEnumerable<ResourcesPerWeekDayDto>> GetResourcesPerWeekDayByDateRangeAsync(DateTime startDate,
-            DateTime endDate)
+
+        public async Task<IEnumerable<ResourcesPerWeekDayDto>> GetResourcesPerWeekDayByDateRangeAsync(
+        DateTime startDate, DateTime endDate)
         {
-            var weekDaysDto = await _alocacaoRepository.GetResourcesPerWeekDayByDateRangeAsync(startDate, endDate);
+            var alocacoes = await _alocacaoRepository.FindByDateRangeAsync(startDate, endDate);
 
-            if (!weekDaysDto.Any()) throw new KeyNotFoundException("Nenhum valor encontrado");
-
-            foreach (var w in weekDaysDto)
+            var weekDaysDto = alocacoes
+            .GroupBy(a => a.DataAlocacao.Date)
+            .Select(g => new ResourcesPerWeekDayDto
             {
-                w.WeekDay = weekDayMapper[w.DayOfWeek];
-            }
-            
+                DayOfWeek = g.Key.DayOfWeek,
+                WeekDay = weekDayMapper[g.Key.DayOfWeek],
+                AllocationsAvg = g.Count() * 1.0 / g.Select(x => x.DataAlocacao.Date).Distinct().Count()
+            }).ToList();
+
             return weekDaysDto;
         }
-
     }    
 }

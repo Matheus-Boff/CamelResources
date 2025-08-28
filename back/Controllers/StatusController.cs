@@ -58,7 +58,7 @@ namespace back.Controllers
         public async Task<IActionResult> GetResourcesCount([FromQuery] DateTime startDate,
             [FromQuery] DateTime endDate)
         {
-            var recursos =  await _service.GetResourcesCountByDateRange(startDate, endDate);
+            var recursos =  await _service.GetResourcesCountByDateRangeAsync(startDate, endDate);
             return Ok(recursos);
         }
     }
