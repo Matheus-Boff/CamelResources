@@ -1,0 +1,24 @@
+@if (isOpen) {
+  <div class="modal-overlay" (click)="onCancel()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+      <h2>Confirmar Reserva</h2>
+      <p><strong>Tipo:</strong> {{ tipo }}</p>
+      @if (tipo === "Notebook") {
+        <p><strong>Número de Patrimônio:</strong> {{ recurso?.nroPatrimonio }}</p>
+        <p><strong>Data de Aquisição:</strong> {{ recurso?.dataAquisicao | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Descrição:</strong> {{ recurso?.descricao }}</p>
+      } @else if (tipo === "Sala") {
+        <p><strong>Número da Sala:</strong> {{ recurso?.numero }}</p>
+        <p><strong>Número de Lugares:</strong> {{ recurso?.numLugares }}</p>
+        <p><strong>Projetor:</strong> @if(recurso?.projetor){Sim}@else{Não}</p>
+      } @else if (tipo === "Laboratorio") {
+        <p><strong>Nome do Laboratório:</strong> {{ recurso?.nome }}</p>
+        <p><strong>Número de Computadores:</strong> {{ recurso?.numComputadores }}</p>
+      }
+      <div class="modal-actions">
+        <button (click)="onCancel()">Cancelar</button>
+        <button (click)="onConfirm()">Confirmar Reserva</button>
+      </div>
+    </div>
+  </div>
+}
