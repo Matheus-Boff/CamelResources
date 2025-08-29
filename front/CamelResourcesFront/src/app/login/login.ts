@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FuncionarioService } from './funcionarioService'
+import { FuncionarioService } from '../services/funcionarioService'
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 

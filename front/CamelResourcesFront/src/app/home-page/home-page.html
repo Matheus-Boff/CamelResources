@@ -1,6 +1,6 @@
 <div class="home-options">
     <div class="calendar-container">
-        <app-calendar></app-calendar>
+        <app-calendar [(date)]="selectedDate"></app-calendar>
     </div>
     <div class="right-container">
         <div class="booking-container">
@@ -14,7 +14,7 @@
                     {{ tipo }}
                 </button>
             </div>
-            <app-resources-board [tipo]="selecionado"></app-resources-board>
+            <app-resources-board [tipo]="selecionado" [selectedDate]="selectedDate"></app-resources-board>
         </div>
         <div class="my-requests">
             <h3>Minhas Reservas</h3>    

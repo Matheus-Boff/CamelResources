@@ -148,6 +148,7 @@ app-resources-board {
 }
 
 app-resources-board article {
+    /* font-size: 16px; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -158,6 +159,26 @@ app-resources-board article {
     background-color: var(--background-color-3);
     width: 95%;
     height: 100%;
+}
+
+app-resources-board button {
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 10px;
+    border: none;
+    color: var(--font-color-1);
+    background-color: var(--background-color-3);
+    width: 95%;
+    height: 100%;
+}
+
+app-resources-board button:hover {
+    background-color: var(--border-color-1);
+    cursor: pointer;
 }
 
 app-my-requests {

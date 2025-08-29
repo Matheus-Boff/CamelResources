@@ -61,9 +61,8 @@ namespace back.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            throw new NotImplementedException();
-            /*await _service.DeleteAsync(id);
-            return Ok();*/
+            await _service.DeleteAsync(id);
+            return Ok();
         }
     }
 }

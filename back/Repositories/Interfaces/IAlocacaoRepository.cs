@@ -12,4 +12,5 @@ public interface IAlocacaoRepository
     Task<IEnumerable<Alocacao>> FindByDateAsync(DateTime date);
     Task<IEnumerable<Alocacao>> FindByDateRangeAsync(DateTime startDate, DateTime endDate);
     Task<IEnumerable<Alocacao>> GetAlocacoesByUserIdAsync(int id);
+    Task DeleteAsync(int id);
 }

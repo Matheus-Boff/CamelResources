@@ -1,13 +1,19 @@
 <ng-container [ngSwitch]="tipo">
     <ng-container *ngSwitchCase="'Notebook'">
-        <article *ngFor="let n of data.Notebook">{{ n }}</article>
+        @for(n of data.Notebook; track n.id){
+            <button (click)="onReservarNote(n)">{{getNomeNotebook(n.descricao)}}</button>
+        }
     </ng-container>
 
     <ng-container *ngSwitchCase="'Sala'">
-        <article *ngFor="let s of data.Sala">{{ s }}</article>
+        @for (s of data.Sala; track s.id) {
+            <button (click)="onReservarSala(s)">Sala {{s.numero}}, lugares {{s.numLugares}}, projetor: @if(s.projetor){Sim}@else{Não}</button>
+        }
     </ng-container>
 
     <ng-container *ngSwitchCase="'Laboratorio'">
-        <article *ngFor="let l of data.Laboratorio">{{ l }}</article>
+        @for (l of data.Laboratorio; track l.id) {
+            <button (click)="onReservarLab(l)">{{l.nome}}, computadores: {{l.numComputadores}}</button>
+        }
     </ng-container>
 </ng-container>
