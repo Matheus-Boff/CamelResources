@@ -17,3 +17,11 @@
         }
     </ng-container>
 </ng-container>
+
+<app-modal-confirm-reserva
+  [isOpen]="isModalOpen"
+  [recurso]="selectedRecurso"
+  [tipo]="tipo"
+  (confirm)="onConfirmReserva()"
+  (cancel)="onCancelReserva()">
+</app-modal-confirm-reserva>
