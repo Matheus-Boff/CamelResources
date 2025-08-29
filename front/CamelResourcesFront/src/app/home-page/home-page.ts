@@ -14,5 +14,5 @@ import { MyRequests } from "../my-requests/my-requests";
 export class HomePage {
   tipos: Array<'Notebook' | 'Sala' | 'Laboratorio'> = ['Notebook', 'Sala', 'Laboratorio'];
   selecionado: 'Notebook' | 'Sala' | 'Laboratorio' = 'Notebook';
-
+  selectedDate : Date = new Date();
 }

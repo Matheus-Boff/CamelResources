@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace back.Repositories.Implementations
 {
-    public class AlocacaoRepository: IAlocacaoRepository
+    public class AlocacaoRepository : IAlocacaoRepository
     {
         private readonly AppDbContext _context;
 
@@ -29,7 +29,7 @@ namespace back.Repositories.Implementations
             {
                 throw new KeyNotFoundException($"Alocação com id {id} não encontrada.");
             }
-            
+
             return alocacao;
         }
 
@@ -45,7 +45,7 @@ namespace back.Repositories.Implementations
                 && a.DataAlocacao.Date <= endDate.Date)
                 .ToListAsync();
         }
-        
+
         public async Task CreateAsync(Alocacao alocacao)
         {
             _context.Alocacoes.Add(alocacao);
@@ -55,14 +55,25 @@ namespace back.Repositories.Implementations
         public async Task<bool> FindRegisterAsync(AlocacaoCreateDTO alocacaoDto)
         {
             return await _context.Alocacoes.AnyAsync(a => a.DataAlocacao == alocacaoDto.DataAlocacao
-            && (alocacaoDto.LaboratorioId != null && a.LaboratorioId == alocacaoDto.LaboratorioId 
-               || alocacaoDto.NotebookId != null &&  a.NotebookId == alocacaoDto.NotebookId 
+            && (alocacaoDto.LaboratorioId != null && a.LaboratorioId == alocacaoDto.LaboratorioId
+               || alocacaoDto.NotebookId != null && a.NotebookId == alocacaoDto.NotebookId
                 || alocacaoDto.SalaId != null && a.SalaId == alocacaoDto.SalaId));
         }
 
         public async Task<IEnumerable<Alocacao>> GetAlocacoesByUserIdAsync(int id)
         {
             return await _context.Alocacoes.Where(a => a.FuncionarioId == id).ToListAsync();
+        }
+        
+        public async Task DeleteAsync(int id)
+        {
+            var alocacao = await _context.Alocacoes.FindAsync(id);
+            if (alocacao == null)
+            {
+                throw new KeyNotFoundException($"Alocação com id {id} não encontrada.");
+            }
+            _context.Alocacoes.Remove(alocacao);
+            await _context.SaveChangesAsync();
         }
     }   
 }

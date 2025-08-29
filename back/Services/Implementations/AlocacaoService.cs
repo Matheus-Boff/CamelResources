@@ -57,7 +57,11 @@ namespace back.Services.Implementations
         
         public async Task CreateAsync(AlocacaoCreateDTO alocacaoDto)
         {
-            if (!ValidateAlocacao(alocacaoDto))
+            // Buscar alocações existentes do usuário para a data
+            var existingAllocations = await _repository.GetAlocacoesByUserIdAsync(alocacaoDto.FuncionarioId);
+            var allocationsOnDate = existingAllocations.Where(a => a.DataAlocacao.Date == alocacaoDto.DataAlocacao.Date);
+
+            if (!ValidateAlocacao(alocacaoDto, allocationsOnDate))
             {
                 throw new ArgumentException("Combinações de alocação inválidas");
             }
@@ -66,7 +70,7 @@ namespace back.Services.Implementations
             {
                 throw new InvalidOperationException("Já existe uma alocação para este recurso nesta data.");
             }
-            
+
             var alocacao = new Alocacao
             {
                 DataAlocacao = alocacaoDto.DataAlocacao.Date,
@@ -74,12 +78,16 @@ namespace back.Services.Implementations
                 LaboratorioId = alocacaoDto.LaboratorioId,
                 SalaId = alocacaoDto.SalaId,
                 NotebookId = alocacaoDto.NotebookId,
-                
             };
 
             await _repository.CreateAsync(alocacao);
         }
-        private bool ValidateAlocacao(AlocacaoCreateDTO alocacaoDto)
+
+        public async Task DeleteAsync(int id)
+        {
+            await _repository.DeleteAsync(id);
+        }
+        private bool ValidateAlocacao(AlocacaoCreateDTO alocacaoDto, IEnumerable<Alocacao> existingAllocations)
         {
             int count = 0;
             if (alocacaoDto.LaboratorioId.HasValue) count++;
@@ -101,7 +109,36 @@ namespace back.Services.Implementations
 
             if (count > 2) return false;
 
-            return count > 0;
+            if (count == 0) return false;
+
+            
+            var hasLab = existingAllocations.Any(a => a.LaboratorioId.HasValue);
+            var hasSala = existingAllocations.Any(a => a.SalaId.HasValue);
+            var hasNotebook = existingAllocations.Any(a => a.NotebookId.HasValue);
+
+            if (alocacaoDto.LaboratorioId.HasValue)
+            {
+                if (hasSala || hasNotebook)
+                {
+                    return false;
+                }
+            }
+            else if (alocacaoDto.SalaId.HasValue)
+            {
+                if (hasLab)
+                {
+                    return false;
+                }
+            }
+            else if (alocacaoDto.NotebookId.HasValue)
+            {
+                if (hasLab)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
         
         public async Task<IEnumerable<AlocacaoReadDTO>> GetAlocacoesByUserIdAsync(int id)
