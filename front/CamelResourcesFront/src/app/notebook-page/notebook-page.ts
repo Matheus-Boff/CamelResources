@@ -3,6 +3,8 @@ import { ResourcesPageComponent } from '../resources-page/resources-page.compone
 import { FormsModule } from '@angular/forms';
 import { ModalAddNotebookComponent } from '../modal-add-notebook/modal-add-notebook.component';
 import { ResourcesService } from '../services/resourcesService';
+import { ModalViewComponent } from "../modal-view/modal-view.component";
+import { NotebookForm } from "../notebook-form/notebook-form";
 
 interface NotebookPayload {
   numPatrimonio: string;
@@ -13,13 +15,13 @@ interface NotebookPayload {
 @Component({
   selector: 'app-notebook-page',
   standalone: true,
-  imports: [ResourcesPageComponent, FormsModule, ModalAddNotebookComponent],
+  imports: [ResourcesPageComponent, FormsModule, ModalAddNotebookComponent, ModalViewComponent, NotebookForm],
   templateUrl: './notebook-page.html',
   styleUrls: ['./notebook-page.css']
 })
 export class NotebookPage implements OnInit {
   isModalOpen = false;
-  buttons: Array<{ icon: string; number: string }> = [];
+  buttons: Array<{ icon: string; number: string; id?: number; recurso?: any }> = [];
 
   constructor(private resourcesService: ResourcesService) {}
 
@@ -28,10 +30,12 @@ export class NotebookPage implements OnInit {
   }
 
   loadNotebooks() {
-    this.resourcesService.getNotebooks().subscribe(notebooks => {
+    this.resourcesService.getNotebooks().subscribe((notebooks : any[]) => {
       this.buttons = notebooks.map(n => ({
-        icon: 'assets/logo.png',
-        number: n.descricao
+        icon: 'notebooks',
+        number: `${n.descricao}`,
+        id: n.id,
+        recurso: n
       }));
     });
   }
@@ -55,20 +59,20 @@ export class NotebookPage implements OnInit {
   }
 
   handleCreate(novo: NotebookPayload) {
-  this.resourcesService.createNotebook({
-    nroPatrimonio: novo.numPatrimonio,
-    dataAquisicao: novo.dataAquisicao,
-    descricao: novo.descricao
-  }).subscribe({
-    next: () => {
-      console.log('Notebook criado com sucesso');
-      this.loadNotebooks(); // Recarrega a lista
-      this.closeModal();
-    },
-    error: (err) => {
-      console.error('Erro ao criar notebook:', err);
-      alert('Erro ao criar notebook: ' + (err.error?.message || 'Erro desconhecido'));
-    }
-  });
-}
+    this.resourcesService.createNotebook({
+      nroPatrimonio: novo.numPatrimonio,
+      dataAquisicao: novo.dataAquisicao,
+      descricao: novo.descricao
+    }).subscribe({
+      next: () => {
+        console.log('Notebook criado com sucesso');
+        this.loadNotebooks();
+        this.closeModal();
+      },
+      error: (err: any) => {
+        console.error('Erro ao criar notebook:', err);
+        alert('Erro ao criar notebook: ' + (err.error?.message || 'Erro desconhecido'));
+      }
+    });
+  }
 }

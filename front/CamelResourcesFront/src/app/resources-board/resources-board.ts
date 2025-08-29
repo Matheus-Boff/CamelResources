@@ -11,7 +11,6 @@ import { ModalConfirmReserva } from '../modal-confirm-reserva/modal-confirm-rese
   imports: [NgFor, NgSwitch, NgSwitchCase, ModalConfirmReserva],
   templateUrl: './resources-board.html',
   styleUrls: ['./resources-board.css'],
-  providers: [ResourcesService]
 })
 export class ResourcesBoard implements OnInit, OnChanges{
   @Input() tipo: 'Notebook' | 'Sala' | 'Laboratorio' = 'Notebook';
@@ -103,15 +102,15 @@ export class ResourcesBoard implements OnInit, OnChanges{
   loadResources() {
     const idUsuario = localStorage.getItem('funcionarioId');
 
-    this.resourcesService.getAvailableNotebooks(this.selectedDate).subscribe(resources => {
+    this.resourcesService.getAvailableNotebooks(this.selectedDate).subscribe((resources : any[]) => {
       this.data.Notebook = resources;
     });
 
-    this.resourcesService.getAvailableSalas(this.selectedDate).subscribe(resources => {
+    this.resourcesService.getAvailableSalas(this.selectedDate).subscribe((resources : any[]) => {
       this.data.Sala = resources;
     });
 
-    this.resourcesService.getAvailableLaboratorios(this.selectedDate).subscribe(resources => {
+    this.resourcesService.getAvailableLaboratorios(this.selectedDate).subscribe((resources : any[]) => {
       this.data.Laboratorio = resources;
     });
 

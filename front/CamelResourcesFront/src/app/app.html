@@ -1,4 +1,6 @@
-<app-header *ngIf="isLoggedIn"></app-header>
+@if(isLoggedIn) {
+  <app-header></app-header>
+}
 <main>
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </main>

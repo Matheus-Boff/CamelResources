@@ -1,9 +1,40 @@
 <div class="resources-page-container">
-	<div class="resources-grid">
-		<app-card-resources
-			*ngFor="let btn of buttons"
-			[icon]="btn.icon"
-			[number]="btn.number">
-		</app-card-resources>
-	</div>
+    <div class="resources-grid">
+        <app-card-resources
+            *ngFor="let btn of buttons"
+            [icon]="btn.icon"
+            [number]="btn.number"
+            (click)="abrirModal(btn)">
+        </app-card-resources>
+    </div>
 </div>
+
+<app-modal-view
+    [isOpen]="isModalOpen"
+    [modalTitle]="modalTitle"
+    (close)="isModalOpen = false"
+>
+    @switch (tipoRecurso) {
+        @case ('notebooks') {
+            <app-notebook-form
+                [recurso]="selectedRecurso"
+                (closeModal)="isModalOpen = false"
+                (refreshRequested)="onRefreshRequested()">
+            </app-notebook-form>
+        }
+        @case ('salas') {
+            <app-sala-form
+                [recurso]="selectedRecurso"
+                (closeModal)="isModalOpen = false"
+                (refreshRequested)="onRefreshRequested()">
+            </app-sala-form>
+        }
+        @case ('laboratorios') {
+            <app-lab-form
+                [recurso]="selectedRecurso"
+                (closeModal)="isModalOpen = false"
+                (refreshRequested)="onRefreshRequested()">
+            </app-lab-form>
+        }
+    }
+</app-modal-view>

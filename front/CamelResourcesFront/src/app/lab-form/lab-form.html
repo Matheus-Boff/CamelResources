@@ -1,0 +1,19 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-content">
+    <div class="form-container">
+      <label>Nome</label>
+      <input formControlName="nome" />
+    </div>
+    <div class="form-container">
+      <label>Quantidade de Computadores</label>
+      <input formControlName="qtdComputadores" type="number" min="1" />
+    </div>
+    <div class="form-container">
+      <label>Descrição dos Computadores</label>
+      <input formControlName="descricao" />
+    </div>
+    <div class="buttons-container">
+      <button class="save-button" type="submit">Salvar</button>
+    </div>
+  </div>
+</form>

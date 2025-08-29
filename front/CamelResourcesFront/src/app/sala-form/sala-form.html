@@ -1,0 +1,22 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-content">
+    <div class="form-container">
+      <label>Número da Sala</label>
+      <input formControlName="numSala" type="number" placeholder="Ex: 101" />
+    </div>
+    <div class="form-container">
+      <label>Número de Lugares</label>
+      <input formControlName="numLugares" type="number" placeholder="Ex: 30" />
+    </div>
+    <div class="form-container">
+      <label>Projetor na Sala</label>
+      <select formControlName="projetor">
+        <option value="S">Sim</option>
+        <option value="N">Não</option>
+      </select>
+    </div>
+    <div class="buttons-container">
+      <button class="save-button" type="submit">Salvar</button>
+    </div>
+  </div>
+</form>

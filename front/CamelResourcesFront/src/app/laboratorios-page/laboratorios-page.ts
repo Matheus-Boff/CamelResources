@@ -10,19 +10,21 @@ import { ResourcesService } from '../services/resourcesService';
   styleUrls: ['./laboratorios-page.css']
 })
 export class LaboratoriosPage implements OnInit {
-  buttons: Array<{ icon: string; number: string }> = [];
+  buttons: Array<{ icon: string; number: string; id?: number; recurso?: any }> = [];
 
   constructor(private resourcesService: ResourcesService) {}
 
   ngOnInit() {
-    this.loadLaboratorios();
+    this.loadLabs();
   }
 
-  loadLaboratorios() {
-    this.resourcesService.getLaboratorios().subscribe(laboratorios => {
-      this.buttons = laboratorios.map(l => ({
-        icon: 'assets/logo.png',
-        number: `${l.nome}, computadores: ${l.numComputadores}`
+  loadLabs() {
+    this.resourcesService.getLaboratorios().subscribe((labs : any[]) => {
+      this.buttons = labs.map(l => ({
+        icon: 'laboratorios',
+        number: `${l.nome}, computadores: ${l.numComputadores}`,
+        id: l.id,
+        recurso: l
       }));
     });
   }
