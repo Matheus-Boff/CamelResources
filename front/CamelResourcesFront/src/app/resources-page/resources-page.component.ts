@@ -29,6 +29,7 @@ export class ResourcesPageComponent {
   }
 
   onRefreshRequested() {
+    console.log("Refresh solicitado pelo formulário, propagando para a página pai");
     this.refreshRequested.emit();
   }
 }

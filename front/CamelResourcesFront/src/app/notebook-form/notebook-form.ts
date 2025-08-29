@@ -17,9 +17,9 @@ export class NotebookForm implements OnInit, OnChanges {
 
   constructor(private fb: FormBuilder, private resourcesService: ResourcesService) {}
 
-  ngOnInit(): void {
+   ngOnInit(): void {
     this.form = this.fb.group({
-      nroPatrimonio: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
+      nroPatrimonio: ['', [Validators.required]], // Remover validações de comprimento fixo
       dataAquisicao: ['', Validators.required],
       descricao: ['', Validators.maxLength(200)],
     });
@@ -79,21 +79,21 @@ export class NotebookForm implements OnInit, OnChanges {
   }
 
   OnDelete() {
-    if (!this.recurso?.id) return;
-    
-    const id = Number(this.recurso.id);
-    if (confirm('Tem certeza que deseja excluir este notebook?')) {
-      this.resourcesService.deleteNotebook(id).subscribe({
-        next: () => {
-          console.log('Notebook excluído');
-          this.closeModal.emit();
-          this.refreshRequested.emit();
-        },
-        error: (err: any) => {
-          console.error('Erro ao excluir:', err);
-          alert('Erro: ' + (err.error?.message || 'Erro desconhecido'));
-        }
-      });
-    }
+  if (!this.recurso?.id) return;
+  
+  const id = Number(this.recurso.id);
+  if (confirm('Tem certeza que deseja excluir este notebook?')) {
+    this.resourcesService.deleteNotebook(id).subscribe({
+      next: () => {
+        console.log('Notebook excluído');
+        this.closeModal.emit();
+        this.refreshRequested.emit();
+      },
+      error: (err: any) => {
+        console.error('Erro ao excluir:', err);
+        alert('Erro: ' + (err.error?.message || 'Erro desconhecido'));
+      }
+    });
   }
+}
 }
