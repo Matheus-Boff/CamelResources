@@ -1,4 +1,12 @@
-<app-header *ngIf="isLoggedIn"></app-header>
+<app-header></app-header>
 <main>
-    <router-outlet></router-outlet>
+  <button (click)="isModalOpen = true">Abrir modal</button>
+  <app-modal-view
+    modalTitle="Nome Laboratório"
+    [isOpen]="isModalOpen"
+    (close)="isModalOpen = false"
+  >
+    <app-sala-form></app-sala-form>
+  </app-modal-view>
+  <router-outlet></router-outlet>
 </main>

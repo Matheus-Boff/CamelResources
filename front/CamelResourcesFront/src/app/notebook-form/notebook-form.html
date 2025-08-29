@@ -1,0 +1,20 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-content">
+    <div class="form-container">
+      <label>Nro. de Patrimônio</label>
+      <input formControlName="nroPatrimonio" maxlength="5" minlength="5" />
+    </div>
+    <div class="form-container">
+      <label>Data de Aquisição</label>
+      <input formControlName="dataAquisicao" type="date" />
+    </div>
+    <div class="form-container">
+      <label>Descrição</label>
+      <input formControlName="descricao" />
+    </div>
+    <div class="buttons-container">
+      <button class="save-button" type="submit">Salvar</button>
+      <button class="delete-button">Deletar</button>
+    </div>
+  </div>
+</form>
