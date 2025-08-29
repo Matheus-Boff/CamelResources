@@ -213,3 +213,6 @@ app-modal-add-notebook {
     overflow: auto;
     pointer-events: auto;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
