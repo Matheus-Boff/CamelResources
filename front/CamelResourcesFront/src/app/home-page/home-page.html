@@ -5,20 +5,59 @@
     <div class="right-container">
         <div class="booking-container">
             <h3>Reservar Recurso</h3>
-            <div class="booking-preferences" role="tablist" aria-label="Tipo de recurso">
-                <button
-                    *ngFor="let tipo of tipos"
-                    [class.active]="selecionado === tipo"
-                    [attr.aria-pressed]="selecionado === tipo"
-                    (click)="selecionado = tipo">
+            <div class="booking-preferences" role="tablist" aria-label="Tipo de recurso"> @for (tipo of tipos; track tipo) {
+                <button [class.active]="selecionado === tipo" [attr.aria-pressed]="selecionado === tipo" (click)="setSelecionado(tipo)">
                     {{ tipo }}
-                </button>
-            </div>
-            <app-resources-board [tipo]="selecionado"></app-resources-board>
+                </button> } </div>
+            <app-resources-board [tipo]="selecionado" [data]="data" (select)="openResourceModal($event)"></app-resources-board>
         </div>
         <div class="my-requests">
-            <h3>Minhas Reservas</h3>    
+            <h3>Minhas Reservas</h3>
             <app-my-requests></app-my-requests>
         </div>
     </div>
 </div>
+
+@if (isModalOpen && selectedResource) {
+<div class="overlay" (click)="closeModal()">
+    <div class="dialog" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
+        <button class="close" (click)="closeModal()" aria-label="Fechar">×</button>
+        <h3 class="title"> @switch (selectedResource.type) { @case ('Notebook') { Notebook } @case ('Sala') { Sala } @case ('Laboratorio') { Laboratório } } </h3> @switch (selectedResource.type) { @case ('Notebook') {
+        <ul class="details">
+            <li>
+                <strong>Nº de Patrimônio:</strong> {{ selectedResource.patrimonio }}
+            </li>
+            <li>
+                <strong>Data de aquisição:</strong> {{ selectedResource.dataAquisicao }}
+            </li>
+            <li>
+                <strong>Descrição:</strong> {{ selectedResource.descricao }}
+            </li>
+        </ul> } @case ('Sala') {
+        <ul class="details">
+            <li>
+                <strong>Número:</strong> {{ selectedResource.numero }}
+            </li>
+            <li>
+                <strong>Lugares:</strong> {{ selectedResource.lugares }}
+            </li>
+            <li>
+                <strong>Projetor:</strong> {{ selectedResource.projetor ? 'Sim' : 'Não' }}
+            </li>
+        </ul> } @case ('Laboratorio') {
+        <ul class="details">
+            <li>
+                <strong>Nome:</strong> {{ selectedResource.nome }}
+            </li>
+            <li>
+                <strong>Quantidade de computadores:</strong> {{ selectedResource.qtdComputadores }}
+            </li>
+            <li>
+                <strong>Descrição da configuração:</strong> {{ selectedResource.descricaoConfig }}
+            </li>
+        </ul> } }
+        <div class="actions">
+            <button class="primary" (click)="reservar(selectedResource)">Reservar</button>
+        </div>
+    </div>
+</div> }

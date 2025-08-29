@@ -1,0 +1,55 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(2px);
+  z-index: 10000;
+}
+
+.dialog {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  overflow: auto;
+  background: #d8e6f5;
+  color: #111;
+  border-radius: 14px;
+  box-shadow: 0 18px 60px rgba(0,0,0,.35);
+  padding: 2rem;
+}
+
+.close {
+  position: absolute;
+  top: 8px; right: 10px;
+  background: transparent;
+  border: 0;
+  font-size: 22px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.title { margin: 0 0 8px; }
+.details { margin: 0 12px 12px 18px; }
+.actions { display: flex; justify-content: flex-end; gap: 8px; }
+.primary {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 10px;
+  background: #012340;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* garantia extra: evite recorte por overflow/transform nos pais */
+.right-container, .booking-container {
+  overflow: visible; /* se você usou overflow:auto/hidden antes */
+}

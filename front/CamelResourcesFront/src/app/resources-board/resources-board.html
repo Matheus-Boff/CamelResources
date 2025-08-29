@@ -1,13 +1,41 @@
-<ng-container [ngSwitch]="tipo">
-    <ng-container *ngSwitchCase="'Notebook'">
-        <article *ngFor="let n of data.Notebook">{{ n }}</article>
-    </ng-container>
-
-    <ng-container *ngSwitchCase="'Sala'">
-        <article *ngFor="let s of data.Sala">{{ s }}</article>
-    </ng-container>
-
-    <ng-container *ngSwitchCase="'Laboratorio'">
-        <article *ngFor="let l of data.Laboratorio">{{ l }}</article>
-    </ng-container>
-</ng-container>
+@switch (tipo) {
+    @case ('Notebook') {
+        @for (n of data.Notebook; track n.patrimonio) {
+            <article
+                class="resource-card"
+                role="button"
+                tabindex="0"
+                (click)="onSelect(n)"
+                (keydown.enter)="onSelect(n)"
+                (keydown.space)="$event.preventDefault(); onSelect(n)">
+                <h4>Notebook • {{ n.patrimonio }}</h4>
+            </article>
+        }
+    }
+    @case ('Sala') {
+        @for (s of data.Sala; track s.numero) {
+            <article
+                class="resource-card"
+                role="button"
+                tabindex="0"
+                (click)="onSelect(s)"
+                (keydown.enter)="onSelect(s)"
+                (keydown.space)="$event.preventDefault(); onSelect(s)">
+                <h4>Sala • {{ s.numero }}</h4>
+            </article>
+        }
+    }
+    @case ('Laboratorio') {
+        @for (l of data.Laboratorio; track l.nome) {
+            <article
+                class="resource-card"
+                role="button"
+                tabindex="0"
+                (click)="onSelect(l)"
+                (keydown.enter)="onSelect(l)"
+                (keydown.space)="$event.preventDefault(); onSelect(l)">
+                <h4>Laboratório • {{ l.nome }}</h4>
+            </article>
+        }
+    }
+}
