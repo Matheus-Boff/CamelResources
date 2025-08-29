@@ -2,12 +2,13 @@ import { Component, Input, Inject, OnInit, OnChanges, SimpleChanges } from '@ang
 import { NgFor, NgSwitch, NgSwitchCase } from '@angular/common';
 import { ResourcesService } from '../services/resourcesService';
 import { AlocacoesService } from '../services/alocacoesService';
+import { ModalConfirmReserva } from '../modal-confirm-reserva/modal-confirm-reserva';
 
 
 @Component({
   selector: 'app-resources-board',
   standalone: true,
-  imports: [NgFor, NgSwitch, NgSwitchCase],
+  imports: [NgFor, NgSwitch, NgSwitchCase, ModalConfirmReserva],
   templateUrl: './resources-board.html',
   styleUrls: ['./resources-board.css'],
   providers: [ResourcesService]
@@ -29,56 +30,61 @@ export class ResourcesBoard implements OnInit, OnChanges{
     Laboratorio: []
   };
 
+  isModalOpen = false;
+  selectedRecurso : any = null;
+
   onReservarNote(recurso: any) {
-    const idUsuario = localStorage.getItem('funcionarioId');
-    if (idUsuario) {
-      this.alocacoesService.addAlocacaoNote(idUsuario, recurso.id.toString(), this.selectedDate).subscribe({
-        next: () => {
-          console.log('Reserva de notebook realizada');
-          this.loadResources();
-          this.alocacoesService.notifyRefresh();
-        },
-        error: (err) => {
-          console.error('Erro na reserva:', err);
-          alert(err.error?.message || 'Erro ao realizar reserva de notebook');
-        }
-      });
-    }
-}
+    this.selectedRecurso = recurso;
+    this.isModalOpen = true;
+  }
 
-onReservarSala(recurso: any) {
-    const idUsuario = localStorage.getItem('funcionarioId');
-    if (idUsuario) {
-      this.alocacoesService.addAlocacaoSala(idUsuario, recurso.id.toString(), this.selectedDate).subscribe({
-        next: () => {
-          console.log('Reserva de sala realizada');
-          this.loadResources();
-          this.alocacoesService.notifyRefresh();
-        },
-        error: (err) => {
-          console.error('Erro na reserva:', err);
-          alert(err.error?.message || 'Erro ao realizar reserva de sala');
-        }
-      });
-    }
-}
+  onReservarSala(recurso: any) {
+    this.selectedRecurso = recurso;
+    this.isModalOpen = true;
+  }
 
-onReservarLab(recurso: any) {
+  onReservarLab(recurso: any) {
+    this.selectedRecurso = recurso;
+    this.isModalOpen = true;
+  }
+
+  onConfirmReserva() {
     const idUsuario = localStorage.getItem('funcionarioId');
-    if (idUsuario) {
-      this.alocacoesService.addAlocacaoLab(idUsuario, recurso.id.toString(), this.selectedDate).subscribe({
-        next: () => {
-          console.log('Reserva de laboratório realizada');
-          this.loadResources();
-          this.alocacoesService.notifyRefresh();
-        },
-        error: (err) => {
-          console.error('Erro na reserva:', err);
-          alert(err.error?.message || 'Erro ao realizar reserva de laboratório');
-        }
-      });
+    if (idUsuario && this.selectedRecurso) {
+      let serviceCall;
+      if (this.tipo === 'Notebook') {
+        serviceCall = this.alocacoesService.addAlocacaoNote(idUsuario, this.selectedRecurso.id.toString(), this.selectedDate);
+      } else if (this.tipo === 'Sala') {
+        serviceCall = this.alocacoesService.addAlocacaoSala(idUsuario, this.selectedRecurso.id.toString(), this.selectedDate);
+      } else if (this.tipo === 'Laboratorio') {
+        serviceCall = this.alocacoesService.addAlocacaoLab(idUsuario, this.selectedRecurso.id.toString(), this.selectedDate);
+      }
+
+      if (serviceCall) {
+        serviceCall.subscribe({
+          next: () => {
+            console.log('Reserva realizada');
+            this.loadResources();
+            this.alocacoesService.notifyRefresh();
+            this.closeModal();
+          },
+          error: (err) => {
+            console.error('Erro na reserva:', err);
+            alert(err.error?.message || 'Erro ao realizar reserva');
+          }
+        });
+      }
     }
-}
+  }
+
+  onCancelReserva() {
+    this.closeModal();
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+    this.selectedRecurso = null;
+  }
 
   getNomeNotebook(descricao: string): string {
     return descricao.split('-')[0].trim();
