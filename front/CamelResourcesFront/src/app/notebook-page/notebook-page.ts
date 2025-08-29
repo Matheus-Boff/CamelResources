@@ -3,6 +3,8 @@ import { ResourcesPageComponent } from '../resources-page/resources-page.compone
 import { FormsModule } from '@angular/forms';
 import { ModalAddNotebookComponent } from '../modal-add-notebook/modal-add-notebook.component';
 import { ResourcesService } from '../services/resourcesService';
+import { ModalViewComponent } from "../modal-view/modal-view.component";
+import { NotebookForm } from "../notebook-form/notebook-form";
 
 interface NotebookPayload {
   numPatrimonio: string;
@@ -13,7 +15,7 @@ interface NotebookPayload {
 @Component({
   selector: 'app-notebook-page',
   standalone: true,
-  imports: [ResourcesPageComponent, FormsModule, ModalAddNotebookComponent],
+  imports: [ResourcesPageComponent, FormsModule, ModalAddNotebookComponent, ModalViewComponent, NotebookForm],
   templateUrl: './notebook-page.html',
   styleUrls: ['./notebook-page.css']
 })
@@ -28,12 +30,23 @@ export class NotebookPage implements OnInit {
   }
 
   loadNotebooks() {
-    this.resourcesService.getNotebooks().subscribe(notebooks => {
-      this.buttons = notebooks.map(n => ({
-        icon: 'assets/logo.png',
-        number: n.descricao
-      }));
-    });
+    // this.resourcesService.getNotebooks().subscribe(notebooks => {
+    //   this.buttons = notebooks.map(n => ({
+    //     icon: 'assets/logo.png',
+    //     number: n.descricao
+    //   }));
+    // });
+
+    const notebooks = [
+    { descricao: 'Notebook Dell i5', numPatrimonio: '12345', dataAquisicao: '2023-01-10' },
+    { descricao: 'Notebook Lenovo i7', numPatrimonio: '67890', dataAquisicao: '2022-05-22' },
+    { descricao: 'Notebook HP Ryzen', numPatrimonio: '54321', dataAquisicao: '2021-11-30' }
+    ];
+
+    this.buttons = notebooks.map(n => ({
+      icon: 'assets/logo.png',
+      number: n.descricao
+    }));
   }
 
   openAddNotebookModal() {

@@ -3,7 +3,25 @@
 		<app-card-resources
 			*ngFor="let btn of buttons"
 			[icon]="btn.icon"
-			[number]="btn.number">
+			[number]="btn.number"
+			(click)="abrirModal(btn)">
 		</app-card-resources>
 	</div>
 </div>
+
+<app-modal-view
+	[isOpen]="isModalOpen"
+	(close)="isModalOpen = false"
+>
+	@switch (tipoRecurso) {
+		@case ('notebooks') {
+			<app-notebook-form></app-notebook-form>
+		}
+		@case ('laboratorios') {
+			<app-lab-form></app-lab-form>
+		}
+		@case ('salas') {
+			<app-sala-form></app-sala-form>
+		}
+	}
+</app-modal-view>
