@@ -9,17 +9,5 @@ import { CardResourcesComponent } from '../card-resources/card-resources.compone
   imports: [CommonModule, CardResourcesComponent]
 })
 export class ResourcesPageComponent {
-  /* Lista de botões a serem exibidos na página */
-  @Input() buttons: Array<{ icon: string; number: string }> = [
-    { icon: 'assets/logo.png', number: '1234567890' },
-    { icon: 'assets/logo.png', number: '9876543210' },
-    { icon: 'assets/logo.png', number: '1122334455' },
-    { icon: 'assets/logo.png', number: '5566778899' },
-    { icon: 'assets/logo.png', number: '5566778899' },
-    { icon: 'assets/logo.png', number: '1122334455' },
-    { icon: 'assets/logo.png', number: '5566778899' },
-    { icon: 'assets/logo.png', number: '5566778899' },
-    { icon: 'assets/logo.png', number: '5566778899' },
-    { icon: 'assets/logo.png', number: '1122334455' }
-  ];
+  @Input() buttons: Array<{ icon: string; number: string }> = [];
 }

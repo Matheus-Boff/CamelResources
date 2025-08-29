@@ -35,6 +35,14 @@ export class ResourcesService {
         return this.http.get<any[]>('http://localhost:5243/api/status/Lab?date=' + dateStr);
     }
 
+    createNotebook(notebook: { nroPatrimonio: string; dataAquisicao: string; descricao: string }) {
+    return this.http.post('http://localhost:5243/api/notebook', {
+        nroPatrimonio: notebook.nroPatrimonio,
+        dataAquisicao: new Date(notebook.dataAquisicao),
+        descricao: notebook.descricao
+    });
+}
+
     /* getAlocacoes(){
         return this.http.get<any[]>('http://localhost:5243/api/alocacao');
     }

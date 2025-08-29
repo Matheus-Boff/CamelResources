@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 
 interface NotebookPayload {
   numPatrimonio: string;
-  marca: string;
+  dataAquisicao: string;
   descricao: string;
 }
 
@@ -21,7 +21,7 @@ export class ModalAddNotebookComponent {
 
   @Output() submitted = new EventEmitter<NotebookPayload>();
 
-  notebook: NotebookPayload = { numPatrimonio: '', marca: '', descricao: '' };
+  notebook: NotebookPayload = { numPatrimonio: '', dataAquisicao: '', descricao: '' };
 
   requestClose() {
     this.isOpen = false;
@@ -34,11 +34,11 @@ export class ModalAddNotebookComponent {
   }
 
   onSubmit() {
-    const { numPatrimonio, marca, descricao } = this.notebook;
-    if (!numPatrimonio?.trim() || !marca?.trim() || !descricao?.trim()) return;
+    const { numPatrimonio, dataAquisicao, descricao } = this.notebook;
+    if (!numPatrimonio?.trim() || !dataAquisicao?.trim() || !descricao?.trim()) return;
 
     this.submitted.emit({ ...this.notebook });
-    this.notebook = { numPatrimonio: '', marca: '', descricao: '' };
+    this.notebook = { numPatrimonio: '', dataAquisicao: '', descricao: '' };
     this.requestClose();
   }
 }

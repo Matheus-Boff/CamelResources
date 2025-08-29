@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ResourcesPageComponent } from '../resources-page/resources-page.component';
 import { FormsModule } from '@angular/forms';
 import { ModalAddNotebookComponent } from '../modal-add-notebook/modal-add-notebook.component';
+import { ResourcesService } from '../services/resourcesService';
 
 interface NotebookPayload {
   numPatrimonio: string;
-  marca: string;
+  dataAquisicao: string;
   descricao: string;
 }
 
@@ -16,8 +17,24 @@ interface NotebookPayload {
   templateUrl: './notebook-page.html',
   styleUrls: ['./notebook-page.css']
 })
-export class NotebookPage {
+export class NotebookPage implements OnInit {
   isModalOpen = false;
+  buttons: Array<{ icon: string; number: string }> = [];
+
+  constructor(private resourcesService: ResourcesService) {}
+
+  ngOnInit() {
+    this.loadNotebooks();
+  }
+
+  loadNotebooks() {
+    this.resourcesService.getNotebooks().subscribe(notebooks => {
+      this.buttons = notebooks.map(n => ({
+        icon: 'assets/logo.png',
+        number: n.descricao
+      }));
+    });
+  }
 
   openAddNotebookModal() {
     this.isModalOpen = true;
@@ -38,7 +55,20 @@ export class NotebookPage {
   }
 
   handleCreate(novo: NotebookPayload) {
-    console.log('Notebook criado:', novo);
-    this.closeModal(); 
-  }
+  this.resourcesService.createNotebook({
+    nroPatrimonio: novo.numPatrimonio,
+    dataAquisicao: novo.dataAquisicao,
+    descricao: novo.descricao
+  }).subscribe({
+    next: () => {
+      console.log('Notebook criado com sucesso');
+      this.loadNotebooks(); // Recarrega a lista
+      this.closeModal();
+    },
+    error: (err) => {
+      console.error('Erro ao criar notebook:', err);
+      alert('Erro ao criar notebook: ' + (err.error?.message || 'Erro desconhecido'));
+    }
+  });
+}
 }
