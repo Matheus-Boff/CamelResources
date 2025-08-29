@@ -11,7 +11,7 @@ import { ResourcesService } from '../services/resourcesService';
   styleUrls: ['./salas-page.css']
 })
 export class SalasPage implements OnInit {
-  buttons: Array<{ icon: string; number: string }> = [];
+  buttons: Array<{ icon: string; number: string; id?: number; recurso?: any }> = [];
 
   constructor(private resourcesService: ResourcesService) {}
 
@@ -20,10 +20,12 @@ export class SalasPage implements OnInit {
   }
 
   loadSalas() {
-    this.resourcesService.getSalas().subscribe(salas => {
+    this.resourcesService.getSalas().subscribe((salas : any[]) => {
       this.buttons = salas.map(s => ({
-        icon: 'assets/logo.png',
-        number: `Sala ${s.numero}, lugares ${s.numLugares}, projetor: ${s.projetor ? 'Sim' : 'Não'}`
+        icon: 'salas',
+        number: `Sala ${s.numero}, lugares ${s.numLugares}, projetor: ${s.projetor ? 'Sim' : 'Não'}`,
+        id: s.id,
+        recurso: s
       }));
     });
   }

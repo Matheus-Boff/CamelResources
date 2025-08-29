@@ -21,7 +21,7 @@ interface NotebookPayload {
 })
 export class NotebookPage implements OnInit {
   isModalOpen = false;
-  buttons: Array<{ icon: string; number: string }> = [];
+  buttons: Array<{ icon: string; number: string; id?: number; recurso?: any }> = [];
 
   constructor(private resourcesService: ResourcesService) {}
 
@@ -30,23 +30,14 @@ export class NotebookPage implements OnInit {
   }
 
   loadNotebooks() {
-    // this.resourcesService.getNotebooks().subscribe(notebooks => {
-    //   this.buttons = notebooks.map(n => ({
-    //     icon: 'assets/logo.png',
-    //     number: n.descricao
-    //   }));
-    // });
-
-    const notebooks = [
-    { descricao: 'Notebook Dell i5', numPatrimonio: '12345', dataAquisicao: '2023-01-10' },
-    { descricao: 'Notebook Lenovo i7', numPatrimonio: '67890', dataAquisicao: '2022-05-22' },
-    { descricao: 'Notebook HP Ryzen', numPatrimonio: '54321', dataAquisicao: '2021-11-30' }
-    ];
-
-    this.buttons = notebooks.map(n => ({
-      icon: 'assets/logo.png',
-      number: n.descricao
-    }));
+    this.resourcesService.getNotebooks().subscribe((notebooks : any[]) => {
+      this.buttons = notebooks.map(n => ({
+        icon: 'notebooks',
+        number: `${n.descricao}`,
+        id: n.id,
+        recurso: n
+      }));
+    });
   }
 
   openAddNotebookModal() {
@@ -68,20 +59,20 @@ export class NotebookPage implements OnInit {
   }
 
   handleCreate(novo: NotebookPayload) {
-  this.resourcesService.createNotebook({
-    nroPatrimonio: novo.numPatrimonio,
-    dataAquisicao: novo.dataAquisicao,
-    descricao: novo.descricao
-  }).subscribe({
-    next: () => {
-      console.log('Notebook criado com sucesso');
-      this.loadNotebooks(); // Recarrega a lista
-      this.closeModal();
-    },
-    error: (err) => {
-      console.error('Erro ao criar notebook:', err);
-      alert('Erro ao criar notebook: ' + (err.error?.message || 'Erro desconhecido'));
-    }
-  });
-}
+    this.resourcesService.createNotebook({
+      nroPatrimonio: novo.numPatrimonio,
+      dataAquisicao: novo.dataAquisicao,
+      descricao: novo.descricao
+    }).subscribe({
+      next: () => {
+        console.log('Notebook criado com sucesso');
+        this.loadNotebooks();
+        this.closeModal();
+      },
+      error: (err: any) => {
+        console.error('Erro ao criar notebook:', err);
+        alert('Erro ao criar notebook: ' + (err.error?.message || 'Erro desconhecido'));
+      }
+    });
+  }
 }
