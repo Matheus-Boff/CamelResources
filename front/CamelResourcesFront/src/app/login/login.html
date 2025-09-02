@@ -1,0 +1,11 @@
+<div class="login-container">
+    <img src="assets/logo.png" alt="Logo" id="Logo">
+    <div class="login-info">
+        <select id="loginOptions" name="opcoes" [(ngModel)]="selectedFuncionarioId">
+          @for (x of funcionarios; track x.id) {
+            <option [value]="x.id">{{ x.nome }} - {{ x.matricula }}</option>
+          }
+        </select>
+    </div>
+    <button id="buttonEntrar" (click)="entrar()">Entrar</button>
+</div>

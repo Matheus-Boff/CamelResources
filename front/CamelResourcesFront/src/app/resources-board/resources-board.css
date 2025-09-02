@@ -1,0 +1,11 @@
+.resources-board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: var(--background-color-2);
+    margin: 1rem;
+    padding: 1.5rem;
+    border-radius: 20px;
+    color: var(--font-color-1);
+}

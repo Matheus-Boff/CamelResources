@@ -1,0 +1,12 @@
+@if (isOpen) {
+<div class="modal-overlay">
+  <div class="modal-container">
+    <button class="modal-close-btn" (click)="onClose()">✖</button>
+    <h2 class="modal-title">{{ modalTitle }}</h2>
+    <hr class="modal-divider" />
+    <div class="modal-info">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>
+}

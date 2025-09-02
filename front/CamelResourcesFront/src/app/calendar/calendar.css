@@ -1,0 +1,28 @@
+:host { display:block; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+
+.cal { display:grid; gap:12px; }
+.cal-head { display:flex; align-items:center; justify-content:space-between; background-color: transparent;}
+.cal-title { font-weight:700; color:#24354d; text-transform:capitalize; }
+
+.cal-nav { display:flex; gap:8px; }
+.btn {
+  appearance:none; border:1px solid #e6e8ec; background:#fff; color:#24354d;
+  padding:8px 10px; border-radius:10px; font-weight:600; cursor:pointer;
+}
+
+.dow, .grid { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
+.dow { color:#6b7280; font-size:12px; text-align:center; }
+
+.cell {
+    aspect-ratio: 1;
+  min-height:50px; border:1px solid #e6e8ec; background:#fff; border-radius:10px;
+  padding:8px; display:flex; align-items:flex-start; justify-content:space-between;
+  font-size:13px; cursor:pointer;
+}
+.cell.empty { visibility:hidden; cursor:default; }
+.cell.past { background:#fafafa80; color:#9aa0a6; cursor:not-allowed; }
+.cell.today { outline:2px solid #2b5fb8; outline-offset:-2px; }
+.cell.selected { box-shadow: inset 0 0 0 2px var(--border-color-2); }
+
+.day { font-weight:600; }
+.dot { width:6px; height:6px; border-radius:50%; background:#2b5fb8; margin-top:4px; }

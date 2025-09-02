@@ -1,0 +1,24 @@
+<div class="home-options">
+    <div class="calendar-container">
+        <app-calendar [(date)]="selectedDate"></app-calendar>
+    </div>
+    <div class="right-container">
+        <div class="booking-container">
+            <h3>Reservar Recurso</h3>
+            <div class="booking-preferences" role="tablist" aria-label="Tipo de recurso">
+                <button
+                    *ngFor="let tipo of tipos"
+                    [class.active]="selecionado === tipo"
+                    [attr.aria-pressed]="selecionado === tipo"
+                    (click)="selecionado = tipo">
+                    {{ tipo }}
+                </button>
+            </div>
+            <app-resources-board [tipo]="selecionado" [selectedDate]="selectedDate"></app-resources-board>
+        </div>
+        <div class="my-requests">
+            <h3>Minhas Reservas</h3>    
+            <app-my-requests></app-my-requests>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<app-resources-page
+  [buttons]="buttons"
+  (refreshRequested)="loadNotebooks()">
+</app-resources-page>
+
+<button class="fab" type="button" (click)="openAddNotebookModal()">
+    <img src="https://img.icons8.com/?size=100&id=62888&format=png&color=FFFFFF" alt="Adicionar notebook">
+</button>
+
+<app-add-notebook-modal
+    [(isOpen)]="isModalOpen"
+    (isOpenChange)="onModalToggle($event)"
+    (submitted)="handleCreate($event)">
+</app-add-notebook-modal>
+

@@ -1,0 +1,215 @@
+:root {
+    --background-color: #CCD3D9;
+    --background-color-2: #99B2B750;
+    --background-color-3: #8195A640;
+    --background-color-4: #012340;
+    --header-background-color: #8195A6;
+    --font-color-1: #012340;
+    --font-color-2: #dbdbdb;
+    --border-color-1: #99B2B7;
+    --border-color-2: #A68A58;
+}
+
+body {
+    background-color: var(--background-color);
+    font-family: 'Albert Sans', sans-serif;
+    margin: 0;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    box-sizing: border-box;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: var(--header-background-color);
+    
+
+    img {
+        max-width: 4rem;
+        height: auto;
+    }
+
+    a {
+        color: var(--font-color-2);
+        text-decoration: none;
+        margin-right: 2rem;
+        font-size: 1.3rem;
+        transition: all 0.3s ease;
+    }
+
+}
+
+header .header-links {
+    display: flex;
+    font-size: 1.3rem;
+    gap: 3rem;
+
+    a {
+        color: var(--font-color-2);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+}
+
+header .header-links a:hover, header a:hover {
+    transform: scale(1.2);
+    text-shadow: 0 0 4px #00000080;
+}
+
+.home-options {
+    display:flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 5rem;
+    height: 100%;
+    width: 100%;
+}
+
+.calendar-container {
+    background-color: var(--background-color-2);
+    padding: 1.5rem;
+    border-radius: 20px;
+    height: fit-content;
+}
+
+.right-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.booking-container, .my-requests {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background-color-2);
+    padding: 1.5rem;
+    border-radius: 20px;
+    color: var(--font-color-1);
+        h3 {
+            font-size: 1.5rem;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+}
+
+.booking-preferences {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    border: 2px solid var(--border-color-1);
+    border-radius: 10px;
+    overflow: hidden;
+    background: #ffffff20;
+    margin-bottom: .9rem;;
+}
+
+.booking-preferences button {
+    border: none;
+    padding: 0.5rem 2rem;
+    color: var(--font-color-1);
+    background-color: var(--background-color-3);
+    transition: all 0.3s ease;
+}
+
+.booking-preferences button:hover {
+    background-color: var(--border-color-1);
+    cursor: pointer;
+}
+
+.booking-preferences button.active,
+.booking-preferences button[aria-pressed="true"]{
+  background-color: var(--border-color-2);
+  color: var(--font-color-2);
+  font-weight: 600;
+}
+
+app-resources-board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 1.5rem;
+    width: 100%;
+    gap: 1rem;
+}
+
+app-resources-board article {
+    /* font-size: 16px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 10px;
+    color: var(--font-color-1);
+    background-color: var(--background-color-3);
+    width: 95%;
+    height: 100%;
+}
+
+app-resources-board button {
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 10px;
+    border: none;
+    color: var(--font-color-1);
+    background-color: var(--background-color-3);
+    width: 95%;
+    height: 100%;
+}
+
+app-resources-board button:hover {
+    background-color: var(--border-color-1);
+    cursor: pointer;
+}
+
+app-my-requests {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+}
+
+app-notebook-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    width: 100%;
+    gap: 1rem;
+}
+
+app-modal-add-notebook {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    display: block;
+
+    width: min(90vw, 520px);
+    max-height: 90vh;
+    overflow: auto;
+    pointer-events: auto;
+}

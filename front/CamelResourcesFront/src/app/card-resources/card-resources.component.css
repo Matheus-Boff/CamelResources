@@ -1,0 +1,50 @@
+.card-resource-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
+  padding: 0.5rem 2rem;
+  width: fit-content;
+
+  border: none;
+  border-radius: 12px;
+  background: var(--background-color-3);
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--text-color-1);
+    font-size: 1.5rem;
+    font-weight: 400;
+    font-family: 'Albert Sans', sans-serif;
+  }
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.card-resource-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.icon,
+.number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+}
+
+.icon img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.number {
+  font-size: 2.1rem;
+  font-weight: 300;
+}

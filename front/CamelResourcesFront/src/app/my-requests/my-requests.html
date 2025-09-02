@@ -1,0 +1,30 @@
+<table class="requests">
+    <thead>
+        <tr>
+            <th scope="col">Data</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Id</th>
+            <th scope="col" class="actions-col">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(a of alocacoes; track a.id){
+            <tr>
+                <td>{{ a.dataAlocacao | date:'yyyy/MM/dd' }}</td>
+                @if (a.notebookId) {
+                    <td>Notebook</td>
+                } @else if (a.salaId) {
+                    <td>Sala</td>
+                } @else {
+                    <td>Lab</td>
+                }
+                <td>{{a.id}}</td>
+                <td class="actions">
+                    <button type="button" class="icon-btn" (click)="onDelete(a.id)" aria-label="Excluir reserva {{ a.id }}">
+                        <img src="https://img.icons8.com/?size=100&id=82708&format=png&color=FA5252" alt="" />
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

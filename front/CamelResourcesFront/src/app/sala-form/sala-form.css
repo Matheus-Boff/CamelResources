@@ -1,0 +1,86 @@
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 16px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+
+  background-color: #fff;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+input:focus {
+  border-color: #369c1a;
+  box-shadow: 0 0 6px rgba(54, 156, 26, 0.4);
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  text-align: start;
+  gap: 1rem;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+button {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(54, 156, 26, 0.3);
+  width: 100%;
+  max-width: 300px;
+  min-width: 150px;
+
+  @media (max-width: 768px) {
+    max-width: 100px;
+  }
+}
+
+.buttons-container {
+  display: flex;
+  gap: 0.5rem;
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+  }
+}
+
+.save-button {
+  background-color: #369c1a;
+}
+
+.delete-button {
+  background-color: #e74c3c;
+}
+
+.save-button:hover {
+  background-color: #2e7c15;
+  box-shadow: 0 6px 12px rgba(54, 156, 26, 0.4);
+}
+
+.delete-button:hover {
+  background-color: #c0392b;
+}
